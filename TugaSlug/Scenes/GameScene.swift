@@ -9,15 +9,26 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var appleNode: SKSpriteNode?
+    var gameViewController : GameViewController?
+    
+    var playerNode: SKSpriteNode?
+    var entities = [GKEntity]()
+    var graphs = [String : GKGraph]()
+    var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
+    var oneWayPlatformComponentSystem: GKComponentSystem<PlatformComponent>?
+    
+    var before = false
+    
+    private var lastUpdateTime : TimeInterval = 0
+    
     let jSizePlusSpriteNode = SKSpriteNode(imageNamed: "plus")
     let jSizeMinusSpriteNode = SKSpriteNode(imageNamed: "minus")
     let setJoystickStickImageBtn = SKLabelNode()
     let setJoystickSubstrateImageBtn = SKLabelNode()
-    let joystickStickColorBtn = SKLabelNode(text: "Sticks random color")
-    let joystickSubstrateColorBtn = SKLabelNode(text: "Substrates random color")
+    //let joystickStickColorBtn = SKLabelNode(text: "Sticks random color")
+    //let joystickSubstrateColorBtn = SKLabelNode(text: "Substrates random color")
 
     
     let moveJoystick = 🕹(withDiameter: 100)
@@ -62,18 +73,18 @@ class GameScene: SKScene {
                 SKAction.scale(to: 1, duration: 0.5)
             ]
             
-            self.appleNode?.run(SKAction.sequence(actions))
+            self.playerNode?.run(SKAction.sequence(actions))
         }
         
         moveJoystick.on(.move) { [unowned self] joystick in
-            guard let appleNode = self.appleNode else {
+            guard let playerNode = self.playerNode else {
                 return
             }
             
             let pVelocity = joystick.velocity;
             let speed = CGFloat(0.12)
             
-            appleNode.position = CGPoint(x: appleNode.position.x + (pVelocity.x * speed), y: appleNode.position.y + (pVelocity.y * speed))
+            playerNode.position = CGPoint(x: playerNode.position.x + (pVelocity.x * speed), y: playerNode.position.y + (pVelocity.y * speed))
         }
         
         moveJoystick.on(.end) { [unowned self] _ in
@@ -82,19 +93,19 @@ class GameScene: SKScene {
                 SKAction.scale(to: 1, duration: 0.5)
             ]
             
-            self.appleNode?.run(SKAction.sequence(actions))
+            self.playerNode?.run(SKAction.sequence(actions))
         }
         
         rotateJoystick.on(.move) { [unowned self] joystick in
-            guard let appleNode = self.appleNode else {
+            guard let playerNode = self.playerNode else {
                 return
             }
             
-            appleNode.zRotation = joystick.angular
+            playerNode.zRotation = joystick.angular
         }
         
         rotateJoystick.on(.end) { [unowned self] _ in
-            self.appleNode?.run(SKAction.rotate(byAngle: 3.6, duration: 0.5))
+            self.playerNode?.run(SKAction.rotate(byAngle: 3.6, duration: 0.5))
         }
         
         //MARK: Handlers end
@@ -109,19 +120,19 @@ class GameScene: SKScene {
         joystickSizeLabel.position = CGPoint(x: btnsOffset, y: selfHeight - btnsOffset)
         addChild(joystickSizeLabel)
         
-        joystickStickColorBtn.fontColor = UIColor.black
-        joystickStickColorBtn.fontSize = 20
-        joystickStickColorBtn.verticalAlignmentMode = .top
-        joystickStickColorBtn.horizontalAlignmentMode = .left
-        joystickStickColorBtn.position = CGPoint(x: btnsOffset, y: selfHeight - 40)
-        addChild(joystickStickColorBtn)
+        //joystickStickColorBtn.fontColor = UIColor.black
+        //joystickStickColorBtn.fontSize = 20
+        //joystickStickColorBtn.verticalAlignmentMode = .top
+        //joystickStickColorBtn.horizontalAlignmentMode = .left
+        //joystickStickColorBtn.position = CGPoint(x: btnsOffset, y: selfHeight - 40)
+        //addChild(joystickStickColorBtn)
         
-        joystickSubstrateColorBtn.fontColor = UIColor.black
-        joystickSubstrateColorBtn.fontSize = 20
-        joystickSubstrateColorBtn.verticalAlignmentMode = .top
-        joystickSubstrateColorBtn.horizontalAlignmentMode = .left
-        joystickSubstrateColorBtn.position = CGPoint(x: btnsOffset, y: selfHeight - 65)
-        addChild(joystickSubstrateColorBtn)
+        //joystickSubstrateColorBtn.fontColor = UIColor.black
+        //joystickSubstrateColorBtn.fontSize = 20
+        //joystickSubstrateColorBtn.verticalAlignmentMode = .top
+        //joystickSubstrateColorBtn.horizontalAlignmentMode = .left
+        //joystickSubstrateColorBtn.position = CGPoint(x: btnsOffset, y: selfHeight - 65)
+        //addChild(joystickSubstrateColorBtn)
         
         jSizeMinusSpriteNode.anchorPoint = CGPoint(x: 0, y: 0.5)
         jSizeMinusSpriteNode.position = CGPoint(x: joystickSizeLabel.frame.maxX + btnsOffset, y: joystickSizeLabel.frame.midY)
@@ -147,23 +158,23 @@ class GameScene: SKScene {
         joystickStickImageEnabled = true
         joystickSubstrateImageEnabled = true
         
-        addApple(CGPoint(x: frame.midX, y: frame.midY))
+        addPlayer(CGPoint(x: frame.midX, y: frame.midY))
         
         view.isMultipleTouchEnabled = true
     }
     
-    func addApple(_ position: CGPoint) {
-        guard let appleImage = UIImage(named: "apple") else {
+    func addPlayer(_ position: CGPoint) {
+        guard let playerImage = UIImage(named: "player") else {
             return
         }
         
-        let texture = SKTexture(image: appleImage)
-        let apple = SKSpriteNode(texture: texture)
-        apple.physicsBody = SKPhysicsBody(texture: texture, size: apple.size)
-        apple.physicsBody!.affectedByGravity = false
-        apple.position = position
-        addChild(apple)
-        appleNode = apple
+        let texture = SKTexture(image: playerImage)
+        let player = SKSpriteNode(texture: texture)
+        player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
+        player.physicsBody!.affectedByGravity = false
+        player.position = position
+        addChild(player)
+        playerNode = player
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -183,12 +194,12 @@ class GameScene: SKScene {
                 joystickStickImageEnabled = !joystickStickImageEnabled
             case setJoystickSubstrateImageBtn:
                 joystickSubstrateImageEnabled = !joystickSubstrateImageEnabled
-            case joystickStickColorBtn:
-                setRandomStickColor()
-            case joystickSubstrateColorBtn:
-                setRandomSubstrateColor()
+            //case joystickStickColorBtn:
+            //    setRandomStickColor()
+            //case joystickSubstrateColorBtn:
+            //    setRandomSubstrateColor()
             default:
-                addApple(touch.location(in: self))
+                addPlayer(touch.location(in: self))
             }
         }
     }
