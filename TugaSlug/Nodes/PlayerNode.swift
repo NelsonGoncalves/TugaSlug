@@ -16,6 +16,8 @@ class PlayerNode : SKSpriteNode {
     var pressingDown = false
     var hitBoxSprite : SKSpriteNode?
     
+    
+    
     func setupPlayer(){
         c_Entity = PlayerEntity()
         
@@ -46,6 +48,5 @@ class PlayerNode : SKSpriteNode {
         self.physicsBody = body
         
     }
-    
     
 }

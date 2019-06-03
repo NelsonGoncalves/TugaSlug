@@ -8,19 +8,79 @@
 
 import UIKit
 import SpriteKit
+import GameplayKit
+
+struct ColliderType {
+    static let PLAYER:  UInt32 = 1;
+    static let GROUND:  UInt32 = 2;
+    static let ENEMY:   UInt32 = 4;
+    static let PLATFORM:UInt32 = 8;
+    static let PLAYERATTACK: UInt32 = 16;
+}
 
 class GameViewController: UIViewController {
 
+    var scene = ""
+    var playerX = 0.0
+    var playerY = 0.0
+    
+    var playerPosition : CGPoint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scene = GameScene(size: self.view.bounds.size)
-        scene.backgroundColor = .white
         
-        if let skView = self.view as? SKView {
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            skView.ignoresSiblingOrder = true
-            skView.presentScene(scene)
+        presentMainMenu()
+        
+    }
+    
+    func presentMainMenu(){
+        if let view = self.view as! SKView? {
+            // Load the SKScene from 'GameScene.sks'
+            if let scene = SKScene(fileNamed: "MainMenuScene") {
+                // Set the scale mode to scale to fit the window
+                scene.scaleMode = .aspectFill
+                
+                if let sceneNode = scene as? MainMenuScene{
+                    sceneNode.gameViewController = self
+                }
+                
+                // Present the scene
+                view.presentScene(scene)
+            }
+            
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
+    }
+    func startGame(){
+        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
+        // including entities and graphs.
+        if let scene = GKScene(fileNamed: "GameScene") {
+            
+            // Get the SKScene from the loaded GKScene
+            if let sceneNode = scene.rootNode as! GameScene? {
+                
+                // Copy gameplay related content over to the scene
+                sceneNode.entities = scene.entities
+                sceneNode.graphs = scene.graphs
+                sceneNode.gameViewController = self
+                sceneNode.size = self.view.bounds.size
+                // Set the scale mode to scale to fit the window
+                sceneNode.scaleMode = .aspectFill
+                
+                
+                // Present the scene
+                if let view = self.view as! SKView? {
+                    view.presentScene(sceneNode, transition: SKTransition.fade(withDuration: 0.5))
+                    
+                    view.ignoresSiblingOrder = true
+                    
+                    view.showsFPS = true
+                    view.showsNodeCount = true
+                    view.showsPhysics = true
+                }
+            }
         }
     }
     override var shouldAutorotate: Bool {

@@ -13,11 +13,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameViewController : GameViewController?
     
-    var playerNode: SKSpriteNode?
+    var playerNode: PlayerNode?
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
-    var oneWayPlatformComponentSystem: GKComponentSystem<PlatformComponent>?
+    var platformComponentSystem: GKComponentSystem<PlatformComponent>?
     
     var before = false
     
@@ -158,24 +158,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         joystickStickImageEnabled = true
         joystickSubstrateImageEnabled = true
         
-        addPlayer(CGPoint(x: frame.midX, y: frame.midY))
         
         view.isMultipleTouchEnabled = true
-    }
-    
-    func addPlayer(_ position: CGPoint) {
-        guard let playerImage = UIImage(named: "player") else {
-            return
+        
+        //Actual game
+        self.physicsWorld.contactDelegate = self
+        
+        self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -5)
+        
+        parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
+        platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)
+        
+        for entity in self.entities{
+            parallaxComponentSystem?.addComponent(foundIn: entity)
+            platformComponentSystem?.addComponent(foundIn: entity)
         }
         
-        let texture = SKTexture(image: playerImage)
-        let player = SKSpriteNode(texture: texture)
-        player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
-        player.physicsBody!.affectedByGravity = false
-        player.position = position
-        addChild(player)
-        playerNode = player
+        if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
+            playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
+            let ent = self.entities.index(of: (playerNode?.entity)!)
+            self.entities.remove(at: ent!)
+            playerNode?.setupPlayer()
+            self.entities.append((playerNode?.entity)!)
+            if let pcc = playerNode?.entity?.component(ofType: PlayerControlComponent.self){
+                pcc.setupControls(camera: camera!, scene: self)
+            }
+        }
+        
+        for component in (parallaxComponentSystem?.components)!{
+            component.prepareWith(camera: camera)
+        }
+        for component in (platformComponentSystem?.components)!{
+            component.setUpWithPlayer(playerNode: playerNode)
+        }
     }
+    
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
@@ -199,10 +218,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //case joystickSubstrateColorBtn:
             //    setRandomSubstrateColor()
             default:
-                addPlayer(touch.location(in: self))
+                playerNode?.setupPlayer();
             }
         }
     }
+    //MARK: ============= Physics
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if (contact.bodyA.categoryBitMask == ColliderType.PLAYER || contact.bodyB.categoryBitMask == ColliderType.PLAYER){
+            if let moveComponent = playerNode?.entity?.component(ofType: ActionComponent.self){
+                moveComponent.onGround = true
+            }
+        }
+        
+        if (contact.bodyA.contactTestBitMask == ColliderType.GROUND && contact.bodyB.contactTestBitMask == ColliderType.PLATFORM){
+            if let platComponent = contact.bodyB.node?.entity?.component(ofType: PlatformComponent.self) {
+                platComponent.contactWithPlayerNode = true
+            }
+        }
+        if (contact.bodyB.contactTestBitMask == ColliderType.GROUND && contact.bodyA.contactTestBitMask == ColliderType.PLATFORM){
+            if let platComponent = contact.bodyA.node?.entity?.component(ofType: PlatformComponent.self) {
+                platComponent.contactWithPlayerNode = true
+            }
+        }
+    }
+    
+    
+    
+    //MARK: ============= Camera
+    
+    
+    func centerOnNode(node: SKNode) {
+        //let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
+        self.camera!.run(SKAction.move(to: CGPoint(x:node.position.x , y:node.position.y), duration: 0.5))
+    }
+    
+    override func didFinishUpdate() {
+        //self.camera?.position = CGPoint(x: (thePlayer?.position.x)!, y: (thePlayer?.position.y)!)
+        centerOnNode(node: playerNode!)
+    }
+
     
     func setRandomStickColor() {
         let randomColor = UIColor.random()
@@ -219,6 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
     }
+
 }
 
 extension UIColor {

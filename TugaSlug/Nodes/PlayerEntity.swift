@@ -22,7 +22,7 @@ class PlayerEntity : GKEntity {
     
     var idle:SKAction?
     var jump:SKAction?
-    var apex:SKAction?
+    var doubleJump:SKAction?
     var fall:SKAction?
     var walk:SKAction?
     var run:SKAction?
@@ -31,7 +31,7 @@ class PlayerEntity : GKEntity {
         
         idle = SKAction(named: idleAnimation)!
         jump = SKAction(named: jumpAnimation)!
-        apex = SKAction(named: doubleJumpAnimation)!
+        doubleJump = SKAction(named: doubleJumpAnimation)!
         fall = SKAction(named: fallAnimation)!
         walk = SKAction(named: walkAnimation)!
         run =  SKAction(named: runAnimation)!
@@ -41,7 +41,7 @@ class PlayerEntity : GKEntity {
                 IdleState(withNode: node , animation: idle!),
                 WalkingState(withNode: node , animation: walk!),
                 JumpingState(withNode: node, animation: jump!),
-                DoubleJumpState(withNode: node, animation: apex!),
+                DoubleJumpState(withNode: node, animation: doubleJump!),
                 FallingState(withNode: node, animation: fall!),
                 RunningState(withNode: node, animation: run!),
                 AttackingState(withNode: node, animation: run!)
