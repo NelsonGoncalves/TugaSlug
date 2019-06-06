@@ -14,6 +14,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
     
     var touchControlNode : TouchControlInputNode?
     
+    
     func setupControls(camera : SKCameraNode, scene: SKScene) {
         
         touchControlNode = TouchControlInputNode(frame: scene.frame)
@@ -22,7 +23,34 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
         
         camera.addChild(touchControlNode!)
     }
-    
+    func getCommandFromAngular(angular: CGFloat) {
+        switch angular {
+        case 0...60,300...359:
+            follow(command: "right")
+        case 61...120:
+            follow(command: "up")
+        case 121...240:
+            follow(command: "left")
+        case 241...300:
+            follow(command: "down")
+        default:
+            follow(command: "other")
+        }
+    }
+    func getAngleForShooting(angular: CGFloat){
+        switch angular {
+        case 0...60,300...359:
+            follow(command: "right")
+        case 61...120:
+            follow(command: "up")
+        case 121...240:
+            follow(command: "left")
+        case 241...300:
+            follow(command: "down")
+        default:
+            follow(command: "other")
+        }
+    }
     func follow(command: String?) {
         if let moveComponent = entity?.component(ofType: ActionComponent.self){
             switch (command!){

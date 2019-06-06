@@ -14,11 +14,8 @@ class TouchControlInputNode : SKSpriteNode {
     var alphaPressed:CGFloat   = 0.9
     
     var pressedButtons = [SKSpriteNode]()
-    
-    let buttonDirUp     = SKSpriteNode(imageNamed: "button_dir_up_0")
-    let buttonDirLeft   = SKSpriteNode(imageNamed: "button_dir_left_0")
-    let buttonDirDown   = SKSpriteNode(imageNamed: "button_dir_down_0")
-    let buttonDirRight  = SKSpriteNode(imageNamed: "button_dir_right_0")
+  
+    let joystick = TLAnalogJoystick(withDiameter: 100)
     
     let buttonA = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_a")))
     let buttonB = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_b")))
@@ -40,24 +37,11 @@ class TouchControlInputNode : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func setupControls(size : CGSize) {
         
-        addButton(button: buttonDirUp,
-                  position: CGPoint(x: -(size.width / 3 ),y: -size.height / 4 + 50),
-                  name: "up",
-                  scale: 2.0)
-        addButton(button: buttonDirLeft,
-                  position: CGPoint(x: -(size.width / 3 ) - 50, y: -size.height / 4),
-                  name: "left",
-                  scale: 2.0)
-        addButton(button: buttonDirDown,
-                  position: CGPoint(x: -(size.width / 3 ), y: -size.height / 4 - 50),
-                  name: "down",
-                  scale: 2.0)
-        addButton(button: buttonDirRight,
-                  position: CGPoint(x: -(size.width / 3 ) + 50, y: -size.height / 4),
-                  name: "right",
-                  scale: 2.0)
+        joystickSetup()
+        
         addButton(button: buttonX,
                   position: CGPoint(x: (size.width / 3 ), y: -size.height / 4 + 50),
                   name: "X",
@@ -84,19 +68,29 @@ class TouchControlInputNode : SKSpriteNode {
         button.alpha = alphaUnpressed
         self.addChild(button)
     }
-    
+    func joystickSetup(){
+        
+        let oneAndOnlyJoystick = TLAnalogJoystickHiddenArea(rect: CGRect(x: 0, y: 0, width: frame.midX, height: frame.height))
+        oneAndOnlyJoystick.joystick = joystick
+        joystick.isMoveable = true
+        let randomColor = UIColor.random()
+        joystick.handleColor = randomColor
+        joystick.baseColor = randomColor
+        self.addChild(oneAndOnlyJoystick)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             
             let location = t.location(in: parent!)
             // for all 4 buttons
-            for button in [buttonDirUp, buttonDirLeft, buttonDirDown, buttonDirRight, buttonA, buttonB, buttonX, buttonY] {
-                // I check if they are already registered in the list
+            for button in [buttonA, buttonB, buttonX, buttonY] {
+                // I cheangular: ck if they are already registered in the list
                 if button.contains(location) && pressedButtons.index(of: button) == nil {
                     pressedButtons.append(button)
                     if ((inputDelegate) != nil){
                         inputDelegate?.follow(command: button.name!)
+                        
                     }
                     
                     
@@ -108,6 +102,20 @@ class TouchControlInputNode : SKSpriteNode {
                     button.alpha = alphaPressed
                 }
             }
+        }
+        //MARK: Handlers begin
+        joystick.on(.begin) { [unowned self] _ in
+            
+        }
+        
+        // movement
+        joystick.on(.move) { [unowned self] joystick in
+            if ((self.inputDelegate) != nil){
+                self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
+            }
+        }
+        
+        joystick.on(.end) { [unowned self] _ in
             
         }
         
@@ -118,7 +126,7 @@ class TouchControlInputNode : SKSpriteNode {
             
             let location = t.location(in: parent!)
             let previousLocation = t.previousLocation(in: parent!)
-            for button in [buttonDirUp, buttonDirLeft, buttonDirDown, buttonDirRight, buttonA, buttonB, buttonX, buttonY] {
+            for button in [buttonA, buttonB, buttonX, buttonY] {
                 // if I get off the button where my finger was before
                 if button.contains(previousLocation)
                     && !button.contains(location) {
@@ -150,6 +158,21 @@ class TouchControlInputNode : SKSpriteNode {
                     button.alpha = alphaPressed
                 }
             }
+            //MARK: Handlers begin
+            joystick.on(.begin) { [unowned self] _ in
+                
+            }
+            // movement
+            joystick.on(.move) { [unowned self] joystick in
+                if ((self.inputDelegate) != nil){
+                    self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
+                }
+            }
+            
+            joystick.on(.end) { [unowned self] _ in
+                
+            }
+            
         }
         
     }
@@ -169,7 +192,7 @@ class TouchControlInputNode : SKSpriteNode {
         for touch in touches! {
             let location = touch.location(in: parent!)
             let previousLocation = touch.previousLocation(in: parent!)
-            for button in [buttonDirUp, buttonDirLeft, buttonDirDown, buttonDirRight, buttonA, buttonB, buttonX, buttonY] {
+            for button in [buttonA, buttonB, buttonX, buttonY] {
                 if button.contains(location) {
                     let index = pressedButtons.index(of: button)
                     if index != nil {
@@ -196,6 +219,21 @@ class TouchControlInputNode : SKSpriteNode {
                 }
             }
         }
+        //MARK: Handlers begin
+        joystick.on(.begin) { [unowned self] _ in
+            
+        }
+        
+        // movement
+        joystick.on(.move) { [unowned self] joystick in
+            if ((self.inputDelegate) != nil){
+                self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
+            }
+        }
+        
+        joystick.on(.end) { [unowned self] _ in
+            
+        }
         
     }
     
@@ -206,6 +244,7 @@ class TouchControlInputNode : SKSpriteNode {
 
 
 protocol ControlInputSourceDelegate : class {
+    func getCommandFromAngular(angular : CGFloat)
     func follow(command : String?)
 }
 

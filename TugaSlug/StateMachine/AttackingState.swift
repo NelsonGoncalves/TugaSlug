@@ -75,7 +75,5 @@ class AttackingState : GKState {
         }
         
     }
-    
-    
 }
 

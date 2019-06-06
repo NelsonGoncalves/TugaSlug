@@ -20,17 +20,34 @@ class ActionComponent : GKComponent {
     
     var runMode = false
     var onGround = false
+    var shooting = false
     
     func moveLeft(){
         direction = -1.0
         startMoving()
+        if(shooting){
+            startShooting()
+        }
     }
     
     func moveRight(){
         direction = 1.0
         startMoving()
+        if(shooting){
+            startShooting()
+        }
     }
     
+    func startShooting(){
+        let stateMachine = (self.entity as! PlayerEntity).st_machine
+        if (stateMachine?.canEnterState(ShootingState.self))! && onGround{
+            stateMachine?.enter(ShootingState.self)
+        }
+        shooting = true
+    }
+    func stopShooting(){
+        shooting = false
+    }
     func startMoving(){
         let stateMachine = (self.entity as! PlayerEntity).st_machine
         
@@ -91,6 +108,9 @@ class ActionComponent : GKComponent {
         } else {
             print("no attack component attached")
         }
+    }
+    func shoot(){
+        
     }
     
     override init() {

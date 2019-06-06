@@ -15,14 +15,15 @@
 		B619EC89229E003A0001896A /* RunningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC88229E003A0001896A /* RunningState.swift */; };
 		B619EC8B229E00BD0001896A /* FallingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC8A229E00BD0001896A /* FallingState.swift */; };
 		B619EC8D229E01D90001896A /* DoubleJumpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC8C229E01D90001896A /* DoubleJumpState.swift */; };
-		B619EC8F229E2A590001896A /* ShootingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC8E229E2A590001896A /* ShootingState.swift */; };
+		B619EC8F229E2A590001896A /* AttackingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC8E229E2A590001896A /* AttackingState.swift */; };
 		B619EC91229E2CD50001896A /* PlatformComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC90229E2CD50001896A /* PlatformComponent.swift */; };
 		B619EC93229E2DD40001896A /* AttackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC92229E2DD40001896A /* AttackComponent.swift */; };
 		B619EC95229E33960001896A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC94229E33960001896A /* MainMenuScene.swift */; };
 		B619EC98229EDCCA0001896A /* ParalaxxComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC97229EDCCA0001896A /* ParalaxxComponent.swift */; };
 		B619EC9C229EDE540001896A /* ActionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9B229EDE540001896A /* ActionComponent.swift */; };
-		B619EC9E229F61C90001896A /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9D229F61C90001896A /* PlayerComponent.swift */; };
+		B619EC9E229F61C90001896A /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9D229F61C90001896A /* PlayerControlComponent.swift */; };
 		B619ECA0229F77160001896A /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9F229F77160001896A /* TouchControlInputNode.swift */; };
+		B6EEE6E822A61192008C3872 /* ShootingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EEE6E722A61192008C3872 /* ShootingState.swift */; };
 		DC2B4D7922973D4F00929B38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D7822973D4F00929B38 /* AppDelegate.swift */; };
 		DC2B4D7D22973D4F00929B38 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4D7C22973D4F00929B38 /* Actions.sks */; };
 		DC2B4D7F22973D4F00929B38 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D7E22973D4F00929B38 /* GameScene.swift */; };
@@ -42,14 +43,15 @@
 		B619EC88229E003A0001896A /* RunningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningState.swift; sourceTree = "<group>"; };
 		B619EC8A229E00BD0001896A /* FallingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingState.swift; sourceTree = "<group>"; };
 		B619EC8C229E01D90001896A /* DoubleJumpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleJumpState.swift; sourceTree = "<group>"; };
-		B619EC8E229E2A590001896A /* ShootingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootingState.swift; sourceTree = "<group>"; };
+		B619EC8E229E2A590001896A /* AttackingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackingState.swift; sourceTree = "<group>"; };
 		B619EC90229E2CD50001896A /* PlatformComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformComponent.swift; sourceTree = "<group>"; };
 		B619EC92229E2DD40001896A /* AttackComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackComponent.swift; sourceTree = "<group>"; };
 		B619EC94229E33960001896A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		B619EC97229EDCCA0001896A /* ParalaxxComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParalaxxComponent.swift; sourceTree = "<group>"; };
 		B619EC9B229EDE540001896A /* ActionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionComponent.swift; sourceTree = "<group>"; };
-		B619EC9D229F61C90001896A /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		B619EC9D229F61C90001896A /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
 		B619EC9F229F77160001896A /* TouchControlInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
+		B6EEE6E722A61192008C3872 /* ShootingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootingState.swift; sourceTree = "<group>"; };
 		DC2B4D7522973D4F00929B38 /* TugaSlug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TugaSlug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2B4D7822973D4F00929B38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC2B4D7C22973D4F00929B38 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -82,7 +84,8 @@
 				B619EC88229E003A0001896A /* RunningState.swift */,
 				B619EC8A229E00BD0001896A /* FallingState.swift */,
 				B619EC8C229E01D90001896A /* DoubleJumpState.swift */,
-				B619EC8E229E2A590001896A /* ShootingState.swift */,
+				B619EC8E229E2A590001896A /* AttackingState.swift */,
+				B6EEE6E722A61192008C3872 /* ShootingState.swift */,
 			);
 			path = StateMachine;
 			sourceTree = "<group>";
@@ -94,7 +97,7 @@
 				B619EC90229E2CD50001896A /* PlatformComponent.swift */,
 				B619EC97229EDCCA0001896A /* ParalaxxComponent.swift */,
 				B619EC9B229EDE540001896A /* ActionComponent.swift */,
-				B619EC9D229F61C90001896A /* PlayerComponent.swift */,
+				B619EC9D229F61C90001896A /* PlayerControlComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -225,11 +228,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B619EC9E229F61C90001896A /* PlayerComponent.swift in Sources */,
+				B619EC9E229F61C90001896A /* PlayerControlComponent.swift in Sources */,
 				B619EC8B229E00BD0001896A /* FallingState.swift in Sources */,
 				B619EC87229DFF6B0001896A /* JumpingState.swift in Sources */,
 				DC2B4D7F22973D4F00929B38 /* GameScene.swift in Sources */,
-				B619EC8F229E2A590001896A /* ShootingState.swift in Sources */,
+				B619EC8F229E2A590001896A /* AttackingState.swift in Sources */,
 				DC2B4D9122974C3800929B38 /* AnalogJoystick.swift in Sources */,
 				B619EC9C229EDE540001896A /* ActionComponent.swift in Sources */,
 				DC2B4D8122973D4F00929B38 /* GameViewController.swift in Sources */,
@@ -237,6 +240,7 @@
 				B619EC93229E2DD40001896A /* AttackComponent.swift in Sources */,
 				B619EC91229E2CD50001896A /* PlatformComponent.swift in Sources */,
 				B619EC85229DFF340001896A /* WalkingState.swift in Sources */,
+				B6EEE6E822A61192008C3872 /* ShootingState.swift in Sources */,
 				B619EC80229DFCF90001896A /* PlayerEntity.swift in Sources */,
 				B619EC83229DFE820001896A /* IdleState.swift in Sources */,
 				B619EC8D229E01D90001896A /* DoubleJumpState.swift in Sources */,
@@ -389,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MW45NUDHT5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TugaSlug/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -407,7 +411,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MW45NUDHT5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TugaSlug/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

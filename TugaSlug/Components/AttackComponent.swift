@@ -15,7 +15,7 @@ class AttackComponent : GKComponent {
         if let stateMachine = (self.entity as! PlayerEntity?)?.st_machine {
             print("tried to enter state")
             if (stateMachine.canEnterState(AttackingState.self)) {
-                print("entered state")
+                print("entered state")	
                 stateMachine.enter(AttackingState.self)
             }
         }

@@ -35,7 +35,7 @@ class PlayerNode : SKSpriteNode {
             
         }
         
-        let imageTexture = SKTexture(imageNamed: "PlayerIdle2")
+        let imageTexture = SKTexture(imageNamed: "PlayerIdle")
         
         let body = SKPhysicsBody(circleOfRadius: imageTexture.size().width / 5, center: CGPoint(x: 0.0, y: -12.0))
         body.affectedByGravity = true
