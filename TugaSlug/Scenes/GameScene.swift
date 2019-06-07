@@ -42,23 +42,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -5)
         
-        //if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
-        //    playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
-        //    let ent = self.entities.index(of: (playerNode?.entity)!)
-        //    self.entities.remove(at: ent!)
-        //    playerNode?.setupPlayer()
-        //    self.entities.append((playerNode?.entity)!)
-        //    if let pcc = playerNode?.entity?.component(ofType: PlayerControlComponent.self){
-        //        pcc.setupControls(camera: camera!, scene: self)
-        //    }
-        //}
-        
-        if let playerNode = childNode(withName: "Player") as? PlayerNode{
-            playerNode.setupPlayer()
-            if let pcc = playerNode.entity?.component(ofType: PlayerControlComponent.self){
+        if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
+            playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
+            let ent = self.entities.index(of: (playerNode?.entity)!)
+            self.entities.remove(at: ent!)
+            playerNode?.setupPlayer()
+            self.entities.append((playerNode?.entity)!)
+            if let pcc = playerNode?.entity?.component(ofType: PlayerControlComponent.self){
                 pcc.setupControls(camera: camera!, scene: self)
             }
         }
+        
+        //if let playerNode = childNode(withName: "Player") as? PlayerNode{
+        //    playerNode.setupPlayer()
+        //    if let pcc = playerNode.entity?.component(ofType: PlayerControlComponent.self){
+        //        pcc.setupControls(camera: camera!, scene: self)
+        //    }
+        //}
         
         //parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
         //platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)
