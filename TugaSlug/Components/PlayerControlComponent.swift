@@ -52,6 +52,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
         }
     }
     func follow(command: String?) {
+        print("command (String(describing: command))")
         if let moveComponent = entity?.component(ofType: ActionComponent.self){
             switch (command!){
             case ("left"):

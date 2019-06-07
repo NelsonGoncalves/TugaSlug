@@ -45,8 +45,6 @@ class PlayerNode : SKSpriteNode {
         body.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
         body.contactTestBitMask = ColliderType.GROUND
         body.restitution = -1.0
-        self.physicsBody = body
-        
+        self.physicsBody = body 
     }
-    
 }

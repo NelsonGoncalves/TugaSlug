@@ -21,15 +21,12 @@ struct ColliderType {
 class GameViewController: UIViewController {
 
     var scene = ""
-    var playerX = 0.0
-    var playerY = 0.0
-    
-    var playerPosition : CGPoint?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presentMainMenu()
+        //presentMainMenu()
+        startGame()
         
         
     }
@@ -37,11 +34,11 @@ class GameViewController: UIViewController {
     func presentMainMenu(){
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "MainMenuScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
-                if let sceneNode = scene as? GameScene{
+                if let sceneNode = scene as? MainMenuScene{
                     sceneNode.gameViewController = self
                 }
                 
@@ -73,13 +70,13 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode, transition: SKTransition.fade(withDuration: 0.5))
-                    
+                    //view.presentScene(sceneNode, transition: SKTransition.fade(withDuration: 0.5))
+                    view.presentScene(sceneNode)
                     view.ignoresSiblingOrder = true
                     
                     view.showsFPS = true
                     view.showsNodeCount = true
-                    view.showsPhysics = true
+                    //view.showsPhysics = true
                 }
             }
         }

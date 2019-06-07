@@ -16,14 +16,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerNode: PlayerNode?
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
-    var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
-    var platformComponentSystem: GKComponentSystem<PlatformComponent>?
+    //var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
+    //var platformComponentSystem: GKComponentSystem<PlatformComponent>?
     
     var before = false
     
     private var lastUpdateTime : TimeInterval = 0
 
- 
+    override func sceneDidLoad() {
+        self.lastUpdateTime = 0
+    }
+    
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         backgroundColor = .white
@@ -39,33 +42,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -5)
         
-        parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
-        platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)
+        //if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
+        //    playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
+        //    let ent = self.entities.index(of: (playerNode?.entity)!)
+        //    self.entities.remove(at: ent!)
+        //    playerNode?.setupPlayer()
+        //    self.entities.append((playerNode?.entity)!)
+        //    if let pcc = playerNode?.entity?.component(ofType: PlayerControlComponent.self){
+        //        pcc.setupControls(camera: camera!, scene: self)
+        //    }
+        //}
         
-        for entity in self.entities{
-            parallaxComponentSystem?.addComponent(foundIn: entity)
-            platformComponentSystem?.addComponent(foundIn: entity)
-        }
-        
-        
-        if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
-            playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
-            let ent = self.entities.index(of: (playerNode?.entity)!)
-            self.entities.remove(at: ent!)
-            playerNode?.setupPlayer()
-            self.entities.append((playerNode?.entity)!)
-            if let pcc = playerNode?.entity?.component(ofType: PlayerControlComponent.self){
+        if let playerNode = childNode(withName: "Player") as? PlayerNode{
+            playerNode.setupPlayer()
+            if let pcc = playerNode.entity?.component(ofType: PlayerControlComponent.self){
                 pcc.setupControls(camera: camera!, scene: self)
             }
         }
-        for component in (parallaxComponentSystem?.components)!{
-            component.prepareWith(camera: camera)
-        }
-        for component in (platformComponentSystem?.components)!{
-            component.setUpWithPlayer(playerNode: playerNode)
-        }
+        
+        //parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
+        //platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)
+        
+        //for entity in self.entities{
+        //    parallaxComponentSystem?.addComponent(foundIn: entity)
+        //    platformComponentSystem?.addComponent(foundIn: entity)
+        //}
+        
+        
+
+        //for component in (parallaxComponentSystem?.components)!{
+        //    component.prepareWith(camera: camera)
+        //}
+        //for component in (platformComponentSystem?.components)!{
+        //    component.setUpWithPlayer(playerNode: playerNode)
+        //}
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        
+        before = true
+        // Called before each frame is rendered
+        
+        // Initialize _lastUpdateTime if it has not already been
+        if (self.lastUpdateTime == 0) {
+            self.lastUpdateTime = currentTime
+        }
+        
+        // Calculate time since last update
+        let dt = currentTime - self.lastUpdateTime
+        
+        // Update entities
+        for entity in self.entities {
+            entity.update(deltaTime: dt)
+        }
+        
+        //parallaxComponentSystem?.update(deltaTime: currentTime)
+        //platformComponentSystem?.update(deltaTime: currentTime)
+        
+        self.lastUpdateTime = currentTime
+        
+    }
     
     
     
@@ -108,10 +145,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didFinishUpdate() {
         //self.camera?.position = CGPoint(x: (thePlayer?.position.x)!, y: (thePlayer?.position.y)!)
         centerOnNode(node: playerNode!)
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-        /* Called before each frame is rendered */
     }
 
 }
