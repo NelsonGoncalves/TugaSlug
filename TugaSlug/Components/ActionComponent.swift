@@ -13,6 +13,7 @@ class ActionComponent : GKComponent {
     @GKInspectable var walkSpeed:CGFloat = 1.6
     @GKInspectable var runSpeed: CGFloat = 3.3
     @GKInspectable var maxJump:CGFloat  = 50.0
+    @GKInspectable var maxSlide:CGFloat  = 10.0
     
     var hSpeed:CGFloat = 0.0
     var vSpeed:CGFloat = 0.0
@@ -20,6 +21,7 @@ class ActionComponent : GKComponent {
     
     var runMode = false
     var onGround = false
+    var OnSlide = false
     var shooting = false
     
     func moveLeft(){
@@ -80,6 +82,16 @@ class ActionComponent : GKComponent {
                 node.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: maxJump))
                 (self.entity as! PlayerEntity).st_machine?.enter(JumpingState.self)
                 onGround = false
+            }
+        }
+    }
+    func slide(){
+        if let node = entity?.component(ofType: GKSKNodeComponent.self)?.node {
+            if (onGround == true && OnSlide == false){
+                node.physicsBody?.applyImpulse(CGVector(dx: maxSlide, dy: 0))
+                (self.entity as! PlayerEntity).st_machine?.enter(JumpingState.self)
+                onGround = false
+                OnSlide = true
             }
         }
     }

@@ -24,6 +24,8 @@
 		B619EC9E229F61C90001896A /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9D229F61C90001896A /* PlayerControlComponent.swift */; };
 		B619ECA0229F77160001896A /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC9F229F77160001896A /* TouchControlInputNode.swift */; };
 		B6EEE6E822A61192008C3872 /* ShootingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EEE6E722A61192008C3872 /* ShootingState.swift */; };
+		DC24C46B22AAC8F80096F09F /* PlayerActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC24C46A22AAC8F80096F09F /* PlayerActions.sks */; };
+		DC24C46D22AACA3E0096F09F /* ScenePreview.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC24C46C22AACA3E0096F09F /* ScenePreview.sks */; };
 		DC2B4D7922973D4F00929B38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D7822973D4F00929B38 /* AppDelegate.swift */; };
 		DC2B4D7D22973D4F00929B38 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4D7C22973D4F00929B38 /* Actions.sks */; };
 		DC2B4D7F22973D4F00929B38 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D7E22973D4F00929B38 /* GameScene.swift */; };
@@ -54,6 +56,8 @@
 		B619EC9D229F61C90001896A /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
 		B619EC9F229F77160001896A /* TouchControlInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
 		B6EEE6E722A61192008C3872 /* ShootingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootingState.swift; sourceTree = "<group>"; };
+		DC24C46A22AAC8F80096F09F /* PlayerActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerActions.sks; sourceTree = "<group>"; };
+		DC24C46C22AACA3E0096F09F /* ScenePreview.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ScenePreview.sks; sourceTree = "<group>"; };
 		DC2B4D7522973D4F00929B38 /* TugaSlug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TugaSlug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2B4D7822973D4F00929B38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC2B4D7C22973D4F00929B38 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -127,6 +131,15 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		DC24C46922AAC8E10096F09F /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				DC24C46A22AAC8F80096F09F /* PlayerActions.sks */,
+				DC24C46C22AACA3E0096F09F /* ScenePreview.sks */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		DC2B4D6C22973D4F00929B38 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +159,7 @@
 		DC2B4D7722973D4F00929B38 /* TugaSlug */ = {
 			isa = PBXGroup;
 			children = (
+				DC24C46922AAC8E10096F09F /* Actions */,
 				B619EC9A229EDD280001896A /* Nodes */,
 				B619EC99229EDD080001896A /* Scenes */,
 				B619EC96229EDC9C0001896A /* Components */,
@@ -225,7 +239,9 @@
 				DC2B4D8622973D5000929B38 /* Assets.xcassets in Resources */,
 				DC2B4D8922973D5000929B38 /* LaunchScreen.storyboard in Resources */,
 				DC6DAA0922A9B02600B08681 /* GameSceneExample.sks in Resources */,
+				DC24C46B22AAC8F80096F09F /* PlayerActions.sks in Resources */,
 				DC2B4D7D22973D4F00929B38 /* Actions.sks in Resources */,
+				DC24C46D22AACA3E0096F09F /* ScenePreview.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

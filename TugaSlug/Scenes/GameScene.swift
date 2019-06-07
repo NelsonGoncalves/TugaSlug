@@ -139,11 +139,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func centerOnNode(node: SKNode) {
         //let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
-        self.camera!.run(SKAction.move(to: CGPoint(x:node.position.x , y:node.position.y), duration: 0.5))
+        self.camera?.run(SKAction.move(to: CGPoint(x:node.position.x , y:node.position.y), duration: 0.5))
     }
     
     override func didFinishUpdate() {
-        //self.camera?.position = CGPoint(x: (thePlayer?.position.x)!, y: (thePlayer?.position.y)!)
+        //self.camera?.position = CGPoint(x: (playerNode?.position.x)!, y: (playerNode?.position.y)!)
         centerOnNode(node: playerNode!)
     }
 

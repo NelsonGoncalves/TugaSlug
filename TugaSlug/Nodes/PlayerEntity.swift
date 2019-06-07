@@ -13,7 +13,7 @@ class PlayerEntity : GKEntity {
     
     var st_machine : GKStateMachine?
     
-    var idleAnimation: String = "IdleAnim"
+    var idleAnimation: String = "Idle"
     //var jumpAnimation: String = "JumpAnim"
     //var doubleJumpAnimation: String = "DoubleJumpAnim"
     //var fallAnimation: String = "FallAnim"
@@ -48,7 +48,7 @@ class PlayerEntity : GKEntity {
                 ])
             st_machine?.enter(IdleState.self)
         }
-        
+
     }
     
     
