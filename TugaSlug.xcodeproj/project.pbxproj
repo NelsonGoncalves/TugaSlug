@@ -35,7 +35,6 @@
 		DC2B4D8922973D5000929B38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4D8722973D5000929B38 /* LaunchScreen.storyboard */; };
 		DC2B4D9122974C3800929B38 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */; };
 		DC6DAA0722A9A89B00B08681 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6DAA0622A9A89B00B08681 /* GameScene.sks */; };
-		DC6DAA0922A9B02600B08681 /* GameSceneExample.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6DAA0822A9B02600B08681 /* GameSceneExample.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +68,6 @@
 		DC2B4D8A22973D5000929B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		DC6DAA0622A9A89B00B08681 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		DC6DAA0822A9B02600B08681 /* GameSceneExample.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameSceneExample.sks; path = ../../../../Downloads/sources/GameSceneExample.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				DC2B4D8022973D4F00929B38 /* GameViewController.swift */,
-				DC6DAA0822A9B02600B08681 /* GameSceneExample.sks */,
 				B619EC94229E33960001896A /* MainMenuScene.swift */,
 				DC2B4D7E22973D4F00929B38 /* GameScene.swift */,
 			);
@@ -238,7 +235,6 @@
 				DC6DAA0722A9A89B00B08681 /* GameScene.sks in Resources */,
 				DC2B4D8622973D5000929B38 /* Assets.xcassets in Resources */,
 				DC2B4D8922973D5000929B38 /* LaunchScreen.storyboard in Resources */,
-				DC6DAA0922A9B02600B08681 /* GameSceneExample.sks in Resources */,
 				DC24C46B22AAC8F80096F09F /* PlayerActions.sks in Resources */,
 				DC2B4D7D22973D4F00929B38 /* Actions.sks in Resources */,
 				DC24C46D22AACA3E0096F09F /* ScenePreview.sks in Resources */,

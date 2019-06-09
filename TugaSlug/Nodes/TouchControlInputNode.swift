@@ -15,7 +15,7 @@ class TouchControlInputNode : SKSpriteNode {
     
     var pressedButtons = [SKSpriteNode]()
   
-    //let joystick = TLAnalogJoystick(withDiameter: 100)
+    //var joystick = TLAnalogJoystick(withDiameter: 100)
     
     let buttonA = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_A")))
     let buttonB = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_B")))
@@ -24,7 +24,7 @@ class TouchControlInputNode : SKSpriteNode {
     
     var inputDelegate : ControlInputSourceDelegate?
     
-    init(frame: CGRect) {
+    init(frame: CGRect,camera: SKCameraNode) {
         
         
         super.init(texture: nil, color: UIColor.clear, size: frame.size)
@@ -40,7 +40,7 @@ class TouchControlInputNode : SKSpriteNode {
     
     func setupControls(size : CGSize) {
         
-        //joystickSetup()
+        joystickSetup()
         
         addButton(button: buttonX,
                   position: CGPoint(x: (size.width / 3 ), y: -size.height / 4 + 50),
@@ -71,13 +71,14 @@ class TouchControlInputNode : SKSpriteNode {
     }
     func joystickSetup(){
     
-        //let oneAndOnlyJoystick = TLAnalogJoystickHiddenArea(rect: CGRect(x: 0, y: 0, width: frame.midX, height: frame.height))
-        //oneAndOnlyJoystick.joystick = joystick
-        //joystick.isMoveable = true
-        //let randomColor = UIColor.random()
-        //joystick.handleColor = randomColor
-        //joystick.baseColor = randomColor
-        //self.addChild(oneAndOnlyJoystick)
+        let joystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: -(size.width / 3 ), y: -size.height / 4, width: size.width/3, height: size.height/3))
+        joystickHiddenArea.joystick = TLAnalogJoystick(withDiameter: 100)
+        joystickHiddenArea.joystick?.isMoveable = true
+        let randomColor = UIColor.random()
+        joystickHiddenArea.joystick?.handleColor = randomColor
+        joystickHiddenArea.joystick?.baseColor = randomColor
+        joystickHiddenArea.name = "joystickHiddenArea"
+        self.addChild(joystickHiddenArea)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -105,11 +106,11 @@ class TouchControlInputNode : SKSpriteNode {
             }
         }
         //MARK: Handlers begin
-        //joystick.on(.begin) { [unowned self] joystick in
-       //     if ((self.inputDelegate) != nil){
-         //       self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
-           // }
-        //}
+        (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.begin) { [unowned self] joystick in
+            //if ((self.inputDelegate) != nil){
+                self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
+            //}
+        }
         
         // movement
         //joystick.on(.move) { [unowned self] joystick in
@@ -168,11 +169,12 @@ class TouchControlInputNode : SKSpriteNode {
               //
             //}
             // movement
-            //joystick.on(.move) { [unowned self] joystick in
-            //    if ((self.inputDelegate) != nil){
-             //       self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
-             //   }
-            //}
+            (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.move) { [unowned self] joystick in
+                 //   if ((self.inputDelegate) != nil){
+                debugPrint(joystick.angular)
+                    self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
+                //}
+            }
             
             //joystick.on(.end) { [unowned self] _ in
              //
@@ -236,9 +238,9 @@ class TouchControlInputNode : SKSpriteNode {
         //    }
         //}
         
-        //joystick.on(.end) { [unowned self] _ in
-         //
-        //}
+        (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.end) { [unowned self] joystick in
+            self.inputDelegate?.follow(command: "stop")
+        }
         
     }
     

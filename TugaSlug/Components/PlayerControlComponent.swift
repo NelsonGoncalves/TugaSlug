@@ -17,42 +17,54 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
     
     func setupControls(camera : SKCameraNode, scene: SKScene) {
         
-        touchControlNode = TouchControlInputNode(frame: scene.frame)
+        touchControlNode = TouchControlInputNode(frame: scene.frame,camera: camera)
         touchControlNode?.inputDelegate = self
         touchControlNode?.position = CGPoint.zero
         
         camera.addChild(touchControlNode!)
     }
     func getCommandFromAngular(angular: CGFloat) {
-        switch angular {
-        case 0...60,300...359:
+        //switch angular {
+        //case (-1.0)...(-2.0):
+        //    follow(command: "right")
+        //case (-1.0)...(1.0):
+        //    follow(command: "up")
+        //case (1.0)...(2.0):
+        //    follow(command: "left")
+        //case (2.0)...(3.0),(-2.0)...(-3.0):
+        //    follow(command: "down")
+        //default:
+        //    follow(command: "other")
+        //}
+        if(angular > -2.0 && angular < -1.0){
             follow(command: "right")
-        case 61...120:
+        }
+        if(angular > -1.0 && angular < 1.0){
             follow(command: "up")
-        case 121...240:
+        }
+        if(angular > 1.0 && angular < 2.0){
             follow(command: "left")
-        case 241...300:
+        }
+        if(angular > 2.0 && angular < 3.0){
             follow(command: "down")
-        default:
-            follow(command: "other")
         }
     }
     func getAngleForShooting(angular: CGFloat){
         switch angular {
-        case 0...60,300...359:
+        case (-1.0)...(-2.0):
             follow(command: "right")
-        case 61...120:
+        case (1.0)...(-1.0):
             follow(command: "up")
-        case 121...240:
+        case (1.0)...(2.0):
             follow(command: "left")
-        case 241...300:
+        case (2.0)...(3.0),(-2.0)...(-3.0):
             follow(command: "down")
         default:
             follow(command: "other")
         }
     }
     func follow(command: String?) {
-        print("command (String(describing: command))")
+        print(command as Any)
         if let moveComponent = entity?.component(ofType: ActionComponent.self){
             switch (command!){
             case ("left"):
@@ -69,7 +81,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
                 moveComponent.beginRun()
             case "stop X","cancel X":
                 moveComponent.stopRun()
-            case "stop right","stop left","cancel right","cancel left":
+            case "stop","cancel":
                 moveComponent.stopMoving()
             case ("B"):
                 moveComponent.attack()
