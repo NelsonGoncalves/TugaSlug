@@ -20,6 +20,11 @@ class AttackComponent : GKComponent {
             }
         }
     }
-    
+    func shoot(){
+        print("shoot")
+        if let stateMachine = (self.entity as! PlayerEntity?)?.st_machine {
+            print("tried to enter shooting")
+        }
+    }
 }
 

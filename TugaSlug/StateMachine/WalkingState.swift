@@ -46,11 +46,13 @@ class WalkingState: GKState {
         } else {
             print("coming from unknown state")
         }
-        node.run(anim)
+        
+        node.run(anim,withKey: "walk")
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
+        
         if ((node.physicsBody?.velocity.dy)! < -0.1){
             stateMachine?.enter(FallingState.self)
             print("lol")

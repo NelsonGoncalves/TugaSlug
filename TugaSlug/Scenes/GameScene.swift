@@ -40,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Actual game
         self.physicsWorld.contactDelegate = self
         
-        self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -5)
+        self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -1)
         
         if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
             playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
@@ -98,6 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         //parallaxComponentSystem?.update(deltaTime: currentTime)
+        //
         //platformComponentSystem?.update(deltaTime: currentTime)
         
         self.lastUpdateTime = currentTime

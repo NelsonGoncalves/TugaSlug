@@ -47,7 +47,7 @@ class AttackingState : GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        if let hitbox = (node as! PlayerNode).hitBoxSprite {
+        if let hitbox = (node as? PlayerNode){
             hitbox.isHidden = false
             ready = false
             duration = totalDuration
@@ -63,7 +63,7 @@ class AttackingState : GKState {
             duration -= currentTime
         } else if cooldown > 0.1 {
             if !ready {
-                if let hitbox = (node as! PlayerNode).hitBoxSprite {
+                if let hitbox = (node as? PlayerNode) {
                     hitbox.isHidden = true
                     
                     stateMachine?.enter(IdleState.self)

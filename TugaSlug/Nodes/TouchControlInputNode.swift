@@ -71,7 +71,7 @@ class TouchControlInputNode : SKSpriteNode {
     }
     func joystickSetup(){
     
-        let joystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: -(size.width / 3 ), y: -size.height / 4, width: size.width/3, height: size.height/3))
+        let joystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: -(size.width/2), y: -size.height / 4, width: size.width, height: size.height))
         joystickHiddenArea.joystick = TLAnalogJoystick(withDiameter: 100)
         joystickHiddenArea.joystick?.isMoveable = true
         let randomColor = UIColor.random()
@@ -92,10 +92,7 @@ class TouchControlInputNode : SKSpriteNode {
                     pressedButtons.append(button)
                     if ((inputDelegate) != nil){
                         inputDelegate?.follow(command: button.name!)
-                        
                     }
-                    
-                    
                 }
                 if pressedButtons.index(of: button) == nil {
                     button.alpha = alphaUnpressed
@@ -108,6 +105,7 @@ class TouchControlInputNode : SKSpriteNode {
         //MARK: Handlers begin
         (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.begin) { [unowned self] joystick in
             //if ((self.inputDelegate) != nil){
+            debugPrint(joystick.angular, "begin")
                 self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
             //}
         }
@@ -171,7 +169,7 @@ class TouchControlInputNode : SKSpriteNode {
             // movement
             (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.move) { [unowned self] joystick in
                  //   if ((self.inputDelegate) != nil){
-                debugPrint(joystick.angular)
+                debugPrint(joystick.angular,"move")
                     self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
                 //}
             }
@@ -179,7 +177,6 @@ class TouchControlInputNode : SKSpriteNode {
             //joystick.on(.end) { [unowned self] _ in
              //
             //}
-            
         }
         
     }
@@ -239,6 +236,7 @@ class TouchControlInputNode : SKSpriteNode {
         //}
         
         (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.end) { [unowned self] joystick in
+            debugPrint(joystick.angular ,"end")
             self.inputDelegate?.follow(command: "stop")
         }
         

@@ -26,7 +26,7 @@ class PlatformComponent : GKComponent {
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
-        if ((playerNode?.position.y)! - 46) > (node?.position.y)! && !(playerNode?.pressingDown)! {
+        if ((playerNode?.position.y)! - 46) > (node?.position.y)! && (playerNode?.pressingDown)! {
             node?.physicsBody?.categoryBitMask = ColliderType.PLATFORM
         }else {
             node?.physicsBody?.categoryBitMask = 0

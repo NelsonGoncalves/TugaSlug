@@ -38,14 +38,18 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
         //}
         if(angular > -2.0 && angular < -1.0){
             follow(command: "right")
+            
         }
+        else
         if(angular > -1.0 && angular < 1.0){
             follow(command: "up")
         }
+        else
         if(angular > 1.0 && angular < 2.0){
             follow(command: "left")
         }
-        if(angular > 2.0 && angular < 3.0){
+        else
+        if(angular > 2.0 && angular < 3.0 || angular > -3.0 && angular < -2.0){
             follow(command: "down")
         }
     }
@@ -53,11 +57,11 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
         switch angular {
         case (-1.0)...(-2.0):
             follow(command: "right")
-        case (1.0)...(-1.0):
+        case (-1.0)...(1.0):
             follow(command: "up")
         case (1.0)...(2.0):
             follow(command: "left")
-        case (2.0)...(3.0),(-2.0)...(-3.0):
+        case (2.0)...(3.0),(-3.0)...(-2.0):
             follow(command: "down")
         default:
             follow(command: "other")
@@ -84,7 +88,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
             case "stop","cancel":
                 moveComponent.stopMoving()
             case ("B"):
-                moveComponent.attack()
+                moveComponent.shoot()
             default:
                 print("otro boton \(String(describing: command))")
             }

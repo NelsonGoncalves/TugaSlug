@@ -14,33 +14,33 @@ class PlayerEntity : GKEntity {
     var st_machine : GKStateMachine?
     
     var idleAnimation: String = "Idle"
-    //var jumpAnimation: String = "JumpAnim"
+    var jumpAnimation: String = "Jump"
     //var doubleJumpAnimation: String = "DoubleJumpAnim"
-    //var fallAnimation: String = "FallAnim"
-    //var walkAnimation: String = "WalkAnim"
-   // var runAnimation: String  = "RunAnim"
+    var fallAnimation: String = "FallAnim"
+    var walkAnimation: String = "Run"
+    var runAnimation: String  = "Run"
     
     var idle:SKAction?
-   // var jump:SKAction?
+    var jump:SKAction?
    // var doubleJump:SKAction?
-   // var fall:SKAction?
-   // var walk:SKAction?
-   // var run:SKAction?
+    var fall:SKAction?
+    var walk:SKAction?
+    var run:SKAction?
     
     func prepareSprite(){
         
         idle = SKAction(named: idleAnimation)!
-        //jump = SKAction(named: jumpAnimation)!
+        jump = SKAction(named: jumpAnimation)!
         //doubleJump = SKAction(named: doubleJumpAnimation)!
         //fall = SKAction(named: fallAnimation)!
-        //walk = SKAction(named: walkAnimation)!
+        walk = SKAction(named: walkAnimation)!
         //run =  SKAction(named: runAnimation)!
         
         if let node = self.component(ofType: GKSKNodeComponent.self)?.node as! SKSpriteNode? {
             st_machine = GKStateMachine(states: [
                 IdleState(withNode: node , animation: idle!),
-                //WalkingState(withNode: node , animation: walk!),
-                //JumpingState(withNode: node, animation: jump!),
+                WalkingState(withNode: node , animation: walk!),
+                JumpingState(withNode: node, animation: jump!),
                 //DoubleJumpState(withNode: node, animation: doubleJump!),
                 //FallingState(withNode: node, animation: fall!),
                 //RunningState(withNode: node, animation: run!),
@@ -48,9 +48,7 @@ class PlayerEntity : GKEntity {
                 ])
             st_machine?.enter(IdleState.self)
         }
-
     }
-    
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)

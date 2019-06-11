@@ -27,17 +27,12 @@ class ActionComponent : GKComponent {
     func moveLeft(){
         direction = -1.0
         startMoving()
-        if(shooting){
-            startShooting()
-        }
     }
     
     func moveRight(){
         direction = 1.0
         startMoving()
-        if(shooting){
-            startShooting()
-        }
+
     }
     
     func startShooting(){
@@ -164,11 +159,13 @@ class ActionComponent : GKComponent {
                 }
             }
             
-            node.position.x = node.position.x + hSpeed
+            //node.position.x = node.position.x + hSpeed
+            node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
             if (hSpeed > 0){
-                node.xScale = -1
+                node.xScale = 0.1
             }else if (hSpeed < 0){
-                node.xScale = 1
+                node.xScale = -0.1
+              
             }
         }
         

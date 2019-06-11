@@ -35,9 +35,9 @@ class ShootingState : GKState {
         case is FallingState.Type:
             return false
         case is JumpingState.Type:
-            return false
+            return true
         case is RunningState.Type:
-            return false
+            return true
         case is IdleState.Type:
             return ready
         default:
@@ -48,7 +48,7 @@ class ShootingState : GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        if let hitbox = (node as! PlayerNode).hitBoxSprite {
+        if let hitbox = (node as? PlayerNode) {
             hitbox.isHidden = false
             ready = false
             duration = totalDuration
@@ -64,7 +64,7 @@ class ShootingState : GKState {
             duration -= currentTime
         } else if cooldown > 0.1 {
             if !ready {
-                if let hitbox = (node as! PlayerNode).hitBoxSprite {
+                if let hitbox = (node as? PlayerNode) {
                     hitbox.isHidden = true
                     
                     stateMachine?.enter(IdleState.self)

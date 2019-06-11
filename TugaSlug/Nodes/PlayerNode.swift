@@ -14,8 +14,6 @@ class PlayerNode : SKSpriteNode {
     var c_Entity:PlayerEntity?
     var currentSpeed:CGFloat = 0
     var pressingDown = false
-    var hitBoxSprite : SKSpriteNode?
-    
     
     
     func setupPlayer(){
@@ -29,22 +27,17 @@ class PlayerNode : SKSpriteNode {
         
         self.entity = c_Entity
         
-        if let hitbox = self.childNode(withName: "HitBox") as? SKSpriteNode {
-            hitBoxSprite = hitbox
-            hitBoxSprite?.isHidden = true
-            
-        }
+        //let imageTexture = SKTexture(imageNamed: "Armature_IDLE_00")
         
-        let imageTexture = SKTexture(imageNamed: "PlayerIdle")
-        
-        let body = SKPhysicsBody(circleOfRadius: imageTexture.size().width / 5, center: CGPoint(x: 0.0, y: -12.0))
+        let body = SKPhysicsBody(rectangleOf: self.size)
+        //let body = SKPhysicsBody(edgeLoopFrom: imageTexture.textureRect())
         body.affectedByGravity = true
         body.isDynamic = true
         body.allowsRotation = false
         body.categoryBitMask = ColliderType.PLAYER
         body.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
         body.contactTestBitMask = ColliderType.GROUND
-        body.restitution = -1.0
+        body.restitution = 0.1
         self.physicsBody = body 
     }
 }
