@@ -71,13 +71,15 @@ class TouchControlInputNode : SKSpriteNode {
     }
     func joystickSetup(){
     
-        let joystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: -(size.width/2), y: -size.height / 4, width: size.width, height: size.height))
+        let joystickHiddenArea = TLAnalogJoystickHiddenArea(rect: CGRect(x: -(size.width/2), y: -size.height / 2, width: size.width/2, height: size.height/2))
         joystickHiddenArea.joystick = TLAnalogJoystick(withDiameter: 100)
         joystickHiddenArea.joystick?.isMoveable = true
         let randomColor = UIColor.random()
         joystickHiddenArea.joystick?.handleColor = randomColor
         joystickHiddenArea.joystick?.baseColor = randomColor
         joystickHiddenArea.name = "joystickHiddenArea"
+        joystickHiddenArea.physicsBody = SKPhysicsBody(rectangleOf: joystickHiddenArea.accessibilityFrame.size)
+      
         self.addChild(joystickHiddenArea)
     }
     
@@ -109,19 +111,6 @@ class TouchControlInputNode : SKSpriteNode {
                 self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
             //}
         }
-        
-        // movement
-        //joystick.on(.move) { [unowned self] joystick in
-         //   if ((self.inputDelegate) != nil){
-           //     self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
-            //}
-       // }
-        
-       // joystick.on(.end) { [unowned self] joystick in
-        //    if ((self.inputDelegate) != nil){
-         //       self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
-           // }
-        //}
         
     }
     

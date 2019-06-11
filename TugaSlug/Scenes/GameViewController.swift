@@ -15,7 +15,7 @@ struct ColliderType {
     static let GROUND:  UInt32 = 2;
     static let ENEMY:   UInt32 = 4;
     static let PLATFORM:UInt32 = 8;
-    static let PLAYERATTACK: UInt32 = 16;
+    static let BULLET: UInt32 = 16;
 }
 
 class GameViewController: UIViewController {

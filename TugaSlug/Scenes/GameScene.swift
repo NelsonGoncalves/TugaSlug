@@ -53,12 +53,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        //if let playerNode = childNode(withName: "Player") as? PlayerNode{
-        //    playerNode.setupPlayer()
-        //    if let pcc = playerNode.entity?.component(ofType: PlayerControlComponent.self){
-        //        pcc.setupControls(camera: camera!, scene: self)
-        //    }
-        //}
         
         //parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
         //platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)

@@ -150,6 +150,7 @@
 		DC2B4D8922973D5000929B38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4D8722973D5000929B38 /* LaunchScreen.storyboard */; };
 		DC2B4D9122974C3800929B38 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */; };
 		DC6DAA0722A9A89B00B08681 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6DAA0622A9A89B00B08681 /* GameScene.sks */; };
+		DC82E0C122B03AFF0029D291 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82E0C022B03AFF0029D291 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,6 +299,7 @@
 		DC2B4D8A22973D5000929B38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		DC6DAA0622A9A89B00B08681 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		DC82E0C022B03AFF0029D291 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +512,7 @@
 		B619EC99229EDD080001896A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				DC6DAA0622A9A89B00B08681 /* GameScene.sks */,
 				236BBE6522AD66570076000D /* GameSceneExample.sks */,
 				DC2B4D8022973D4F00929B38 /* GameViewController.swift */,
 				B619EC94229E33960001896A /* MainMenuScene.swift */,
@@ -557,7 +560,6 @@
 			isa = PBXGroup;
 			children = (
 				236BBE6722AEC01E0076000D /* SupportingFiles */,
-				DC6DAA0622A9A89B00B08681 /* GameScene.sks */,
 				DC24C46922AAC8E10096F09F /* Actions */,
 				B619EC9A229EDD280001896A /* Nodes */,
 				B619EC99229EDD080001896A /* Scenes */,
@@ -570,6 +572,7 @@
 				DC2B4D8A22973D5000929B38 /* Info.plist */,
 				DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */,
 				23F2928922AF494A000ABBD0 /* SiriaTileSet.sks */,
+				DC82E0C022B03AFF0029D291 /* Extensions.swift */,
 			);
 			path = TugaSlug;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				B619EC9C229EDE540001896A /* ActionComponent.swift in Sources */,
 				DC2B4D8122973D4F00929B38 /* GameViewController.swift in Sources */,
 				B619EC95229E33960001896A /* MainMenuScene.swift in Sources */,
+				DC82E0C122B03AFF0029D291 /* Extensions.swift in Sources */,
 				B619EC93229E2DD40001896A /* AttackComponent.swift in Sources */,
 				B619EC91229E2CD50001896A /* PlatformComponent.swift in Sources */,
 				B619EC85229DFF340001896A /* WalkingState.swift in Sources */,

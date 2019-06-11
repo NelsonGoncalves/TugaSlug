@@ -13,15 +13,7 @@ class ShootingState : GKState {
     
     var node: SKNode
     var anim: SKAction
-    var ready = true
-    
-    var totalDuration : Double = 0.3
-    var totalCooldown : Double = 0.1
-    
-    var duration : Double = 0
-    var cooldown : Double = 0
-    
-    var lastUpdateTime : Double = 0.0
+
     
     init(withNode: SKNode, animation: SKAction) {
         node = withNode
@@ -35,11 +27,11 @@ class ShootingState : GKState {
         case is FallingState.Type:
             return false
         case is JumpingState.Type:
-            return true
+            return false
         case is RunningState.Type:
-            return true
+            return false
         case is IdleState.Type:
-            return ready
+            return true
         default:
             return false
         }
@@ -47,35 +39,11 @@ class ShootingState : GKState {
     
     
     override func didEnter(from previousState: GKState?) {
-        
-        if let hitbox = (node as? PlayerNode) {
-            hitbox.isHidden = false
-            ready = false
-            duration = totalDuration
-            cooldown = totalCooldown
-            lastUpdateTime = 0
-        }
-        
+  
     }
     override func update(deltaTime currentTime: TimeInterval) {
         super.update(deltaTime: currentTime)
         
-        if duration > 0.1 {
-            duration -= currentTime
-        } else if cooldown > 0.1 {
-            if !ready {
-                if let hitbox = (node as? PlayerNode) {
-                    hitbox.isHidden = true
-                    
-                    stateMachine?.enter(IdleState.self)
-                }
-            }
-            cooldown -= currentTime
-        } else {
-            ready = true
-        }
         
     }
-    
-    
 }

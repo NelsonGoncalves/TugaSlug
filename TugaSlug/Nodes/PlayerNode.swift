@@ -14,6 +14,8 @@ class PlayerNode : SKSpriteNode {
     var c_Entity:PlayerEntity?
     var currentSpeed:CGFloat = 0
     var pressingDown = false
+    var maxHealth  = 5
+    var currentHealth  = 0
     
     
     func setupPlayer(){
@@ -38,6 +40,9 @@ class PlayerNode : SKSpriteNode {
         body.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
         body.contactTestBitMask = ColliderType.GROUND
         body.restitution = 0.1
-        self.physicsBody = body 
+        self.physicsBody = body
+        
+        self.currentHealth = maxHealth
+        
     }
 }

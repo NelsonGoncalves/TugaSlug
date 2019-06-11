@@ -22,7 +22,6 @@ class ActionComponent : GKComponent {
     var runMode = false
     var onGround = false
     var OnSlide = false
-    var shooting = false
     
     func moveLeft(){
         direction = -1.0
@@ -35,16 +34,6 @@ class ActionComponent : GKComponent {
 
     }
     
-    func startShooting(){
-        let stateMachine = (self.entity as! PlayerEntity).st_machine
-        if (stateMachine?.canEnterState(ShootingState.self))! && onGround{
-            stateMachine?.enter(ShootingState.self)
-        }
-        shooting = true
-    }
-    func stopShooting(){
-        shooting = false
-    }
     func startMoving(){
         let stateMachine = (self.entity as! PlayerEntity).st_machine
         
@@ -116,10 +105,22 @@ class ActionComponent : GKComponent {
             print("no attack component attached")
         }
     }
-    func shoot(){
-        
+    func shoot(direction: CGVector){
+        if let attackComp = self.entity?.component(ofType: AttackComponent.self) {
+            attackComp.shooting = true
+            attackComp.shoot(direction: direction)
+            
+        } else {
+            print("no attack component attached")
+        }
     }
-    
+    func stopShooting(){
+        if let attackComp = self.entity?.component(ofType: AttackComponent.self) {
+            attackComp.shooting = false
+        } else {
+            print("no attack component attached")
+        }
+    }
     override init() {
         super.init()
     }
@@ -160,12 +161,13 @@ class ActionComponent : GKComponent {
             }
             
             //node.position.x = node.position.x + hSpeed
-            node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
+            
             if (hSpeed > 0){
+                node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
                 node.xScale = 0.1
             }else if (hSpeed < 0){
+                node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
                 node.xScale = -0.1
-              
             }
         }
         

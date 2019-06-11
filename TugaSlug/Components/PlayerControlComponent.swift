@@ -13,14 +13,14 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
     
     
     var touchControlNode : TouchControlInputNode?
-    
+    var currentScene : SKScene!
     
     func setupControls(camera : SKCameraNode, scene: SKScene) {
         
         touchControlNode = TouchControlInputNode(frame: scene.frame,camera: camera)
         touchControlNode?.inputDelegate = self
         touchControlNode?.position = CGPoint.zero
-        
+        self.currentScene = scene
         camera.addChild(touchControlNode!)
     }
     func getCommandFromAngular(angular: CGFloat) {
@@ -53,19 +53,29 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
             follow(command: "down")
         }
     }
-    func getAngleForShooting(angular: CGFloat){
-        switch angular {
-        case (-1.0)...(-2.0):
-            follow(command: "right")
-        case (-1.0)...(1.0):
-            follow(command: "up")
-        case (1.0)...(2.0):
-            follow(command: "left")
-        case (2.0)...(3.0),(-3.0)...(-2.0):
-            follow(command: "down")
-        default:
-            follow(command: "other")
+    func getDirectionFromAngle() -> CGVector{
+        var dir = CGVector(dx: 0, dy: 0)
+        if let angular = (touchControlNode?.childNode(withName: "joystickHiddenArea") as! TLAnalogJoystickHiddenArea).joystick?.angular {
+            
+            switch angular {
+            case (-2.0)...(-1.0):
+                // right
+                dir = CGVector(dx: 1, dy: 0)
+            case (-1.0)...(1.0):
+                // left
+                dir = CGVector(dx: -1, dy: 0)
+            case (1.0)...(2.0):
+                // up
+                dir = CGVector(dx: 0, dy: 1)
+            case (2.0)...(3.0),(-3.0)...(-2.0):
+                // down
+                dir = CGVector(dx: 0, dy: -1)
+            default:
+                dir = CGVector(dx: 0, dy: 0)
+            }
         }
+        print(dir)
+        return dir
     }
     func follow(command: String?) {
         print(command as Any)
@@ -88,7 +98,10 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
             case "stop","cancel":
                 moveComponent.stopMoving()
             case ("B"):
-                moveComponent.shoot()
+                let dir = getDirectionFromAngle()
+                moveComponent.shoot(direction: dir)
+            case "stop B":
+                moveComponent.stopShooting()
             default:
                 print("otro boton \(String(describing: command))")
             }
