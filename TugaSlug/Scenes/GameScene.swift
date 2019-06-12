@@ -30,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         backgroundColor = .white
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        //physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         
 
         //MARK: Handlers end
@@ -125,8 +125,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 platComponent.contactWithPlayerNode = true
             }
         }
+        //bullet
+        if(contact.bodyA.categoryBitMask == ColliderType.BULLET && contact.bodyB.categoryBitMask != ColliderType.BULLET){
+            if contact.bodyA.contactTestBitMask == ColliderType.GROUND || contact.bodyA.contactTestBitMask == ColliderType.PLATFORM{
+                contact.bodyA.node?.run(SKAction.removeFromParent())
+            }
+            if contact.bodyA.contactTestBitMask == ColliderType.ENEMY {
+                if let attackComponent = contact.bodyA.node?.entity?.component(ofType: AttackComponent.self){
+                    
+                }
+                contact.bodyA.node?.run(SKAction.removeFromParent())
+            }
+        }
+        if(contact.bodyB.categoryBitMask == ColliderType.BULLET && contact.bodyA.categoryBitMask != ColliderType.BULLET){
+            
+            contact.bodyB.node?.run(SKAction.removeFromParent())
+        }
     }
     
+    let despawnBulletAction: SKAction = {
+        let growAndFadeAction = SKAction.group([SKAction.scale(to: 50, duration: 0.5),
+                                                SKAction.fadeOut(withDuration: 0.5)])
+        
+        let sequence = SKAction.sequence([growAndFadeAction,
+                                          SKAction.removeFromParent()])
+        
+        return sequence
+    }()
     
     
     //MARK: ============= Camera

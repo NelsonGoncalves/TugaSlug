@@ -16,7 +16,7 @@ class AttackComponent : GKComponent {
     var shooting = false
     var ready = false
     var cooldown = 0.0
-    var totalCooldown = 2.0
+    var totalCooldown = 0.5
     var dir = CGVector(dx: 0, dy: 0)
     
     func attack(){
@@ -63,19 +63,20 @@ class AttackComponent : GKComponent {
                 let direction = CGPoint(x: dir.dx, y: dir.dy)
                 //let shootAmount = direction * 1000
                 //let destination = shootAmount + bullet.position
-                var tmpDir = CGPoint(x: 0, y: 1)
+                var tmpDir = CGPoint(x: 1, y: 0)
                 var tmpDir2 = CGVector(dx: 0, dy: 1)
                 
                 bullet.physicsBody?.applyImpulse(CGVector(dx: tmpDir.x * 10.0, dy: tmpDir.y * 10.0))
-                bullet.physicsBody?.categoryBitMask = ColliderType.PLAYER
+                bullet.physicsBody?.categoryBitMask = ColliderType.BULLET
                 bullet.physicsBody?.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
                 bullet.physicsBody?.contactTestBitMask = ColliderType.GROUND
-                bullet.physicsBody?.restitution = 1
+                bullet.physicsBody?.restitution = 0.1
                 
                 //let actionMove = SKAction.move(to: destination, duration: 2.0)
-                //let actionRemove = SKAction.removeFromParent()
-                //let sequence = SKAction.sequence([actionMove,actionRemove])
-                //bullet.run(sequence)
+                let actionWait = SKAction.wait(forDuration: 2.0)
+                let actionRemove = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([actionWait,actionRemove])
+                bullet.run(sequence)
             }
         }
     }

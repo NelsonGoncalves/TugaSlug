@@ -29,13 +29,15 @@ class PlayerNode : SKSpriteNode {
         
         self.entity = c_Entity
         
-        //let imageTexture = SKTexture(imageNamed: "Armature_IDLE_00")
+        let imageTexture = SKTexture(imageNamed: "Armature_IDLE_00")
         
-        let body = SKPhysicsBody(rectangleOf: self.size)
+        let body = SKPhysicsBody(circleOfRadius: imageTexture.size().width / 20, center: CGPoint(x: 0, y: -8.0))
+        
         //let body = SKPhysicsBody(edgeLoopFrom: imageTexture.textureRect())
         body.affectedByGravity = true
         body.isDynamic = true
         body.allowsRotation = false
+        body.mass = 1
         body.categoryBitMask = ColliderType.PLAYER
         body.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
         body.contactTestBitMask = ColliderType.GROUND
