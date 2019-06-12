@@ -151,6 +151,7 @@
 		DC2B4D9122974C3800929B38 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */; };
 		DC6DAA0722A9A89B00B08681 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6DAA0622A9A89B00B08681 /* GameScene.sks */; };
 		DC82E0C122B03AFF0029D291 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC82E0C022B03AFF0029D291 /* Extensions.swift */; };
+		DCCB71A122B1B8DC004522A0 /* SlidingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCB71A022B1B8DC004522A0 /* SlidingState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -300,6 +301,7 @@
 		DC2B4D9022974C3800929B38 /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		DC6DAA0622A9A89B00B08681 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		DC82E0C022B03AFF0029D291 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DCCB71A022B1B8DC004522A0 /* SlidingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +495,7 @@
 				B619EC8C229E01D90001896A /* DoubleJumpState.swift */,
 				B619EC8E229E2A590001896A /* AttackingState.swift */,
 				B6EEE6E722A61192008C3872 /* ShootingState.swift */,
+				DCCB71A022B1B8DC004522A0 /* SlidingState.swift */,
 			);
 			path = StateMachine;
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 				B619EC91229E2CD50001896A /* PlatformComponent.swift in Sources */,
 				B619EC85229DFF340001896A /* WalkingState.swift in Sources */,
 				B6EEE6E822A61192008C3872 /* ShootingState.swift in Sources */,
+				DCCB71A122B1B8DC004522A0 /* SlidingState.swift in Sources */,
 				B619EC80229DFCF90001896A /* PlayerEntity.swift in Sources */,
 				B619EC83229DFE820001896A /* IdleState.swift in Sources */,
 				B619EC8D229E01D90001896A /* DoubleJumpState.swift in Sources */,

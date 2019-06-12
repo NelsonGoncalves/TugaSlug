@@ -93,6 +93,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
                 moveComponent.stopDown()
             case ("X"):
                 moveComponent.beginRun()
+                moveComponent.slide()
             case "stop X","cancel X":
                 moveComponent.stopRun()
             case "stop","cancel":

@@ -37,11 +37,12 @@ class PlayerNode : SKSpriteNode {
         body.affectedByGravity = true
         body.isDynamic = true
         body.allowsRotation = false
-        body.mass = 1
+        body.mass = 0.5
+        
         body.categoryBitMask = ColliderType.PLAYER
         body.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
         body.contactTestBitMask = ColliderType.GROUND
-        body.restitution = 0.1
+        body.restitution = -0.1
         self.physicsBody = body
         
         self.currentHealth = maxHealth
