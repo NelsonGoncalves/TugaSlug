@@ -17,10 +17,9 @@ class TouchControlInputNode : SKSpriteNode {
   
     //var joystick = TLAnalogJoystick(withDiameter: 100)
     
-    let buttonA = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_A")))
-    let buttonB = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_B")))
-    let buttonX = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_X")))
-    let buttonY = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "button_Y")))
+    let buttonA = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "jump_button")))
+    let buttonB = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "shoot_button")))
+    let buttonX = SKSpriteNode(texture: SKTexture(image: #imageLiteral(resourceName: "slide_button")))
     
     var inputDelegate : ControlInputSourceDelegate?
     
@@ -45,19 +44,15 @@ class TouchControlInputNode : SKSpriteNode {
         addButton(button: buttonX,
                   position: CGPoint(x: (size.width / 3 ), y: -size.height / 4 + 50),
                   name: "X",
-                  scale: 0.40)
-        addButton(button: buttonY,
-                  position: CGPoint(x: (size.width / 3 ) - 50, y: -size.height / 4),
-                  name: "Y",
-                  scale: 0.40)
+                  scale: 0.80)
         addButton(button: buttonB,
                   position: CGPoint(x: (size.width / 3 ), y: -size.height / 4 - 50),
                   name: "B",
-                  scale: 0.40)
+                  scale: 0.80)
         addButton(button: buttonA,
                   position: CGPoint(x: (size.width / 3 ) + 50, y: -size.height / 4),
                   name: "A",
-                  scale: 0.40)
+                  scale: 0.80)
 
     }
     
@@ -88,7 +83,7 @@ class TouchControlInputNode : SKSpriteNode {
             
             let location = t.location(in: parent!)
             // for all 4 buttons
-            for button in [buttonA, buttonB, buttonX, buttonY] {
+            for button in [buttonA, buttonB, buttonX] {
                 // I cheangular: ck if they are already registered in the list
                 if button.contains(location) && pressedButtons.index(of: button) == nil {
                     pressedButtons.append(button)
@@ -119,7 +114,7 @@ class TouchControlInputNode : SKSpriteNode {
             
             let location = t.location(in: parent!)
             let previousLocation = t.previousLocation(in: parent!)
-            for button in [buttonA, buttonB, buttonX, buttonY] {
+            for button in [buttonA, buttonB, buttonX] {
                 // if I get off the button where my finger was before
                 if button.contains(previousLocation)
                     && !button.contains(location) {
@@ -134,7 +129,7 @@ class TouchControlInputNode : SKSpriteNode {
                         
                     }
                 }
-                    // if I get on the button where I wasn't previously
+                // if I get on the button where I wasn't previously
                 else if !button.contains(previousLocation)
                     && button.contains(location)
                     && pressedButtons.index(of: button) == nil {
@@ -152,9 +147,6 @@ class TouchControlInputNode : SKSpriteNode {
                 }
             }
             //MARK: Handlers begin
-            ///joystick.on(.begin) { [unowned self] _ in
-              //
-            //}
             // movement
             (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.move) { [unowned self] joystick in
                  //   if ((self.inputDelegate) != nil){
@@ -163,9 +155,6 @@ class TouchControlInputNode : SKSpriteNode {
                 //}
             }
             
-            //joystick.on(.end) { [unowned self] _ in
-             //
-            //}
         }
         
     }
@@ -185,7 +174,7 @@ class TouchControlInputNode : SKSpriteNode {
         for touch in touches! {
             let location = touch.location(in: parent!)
             let previousLocation = touch.previousLocation(in: parent!)
-            for button in [buttonA, buttonB, buttonX, buttonY] {
+            for button in [buttonA, buttonB, buttonX] {
                 if button.contains(location) {
                     let index = pressedButtons.index(of: button)
                     if index != nil {
@@ -212,17 +201,6 @@ class TouchControlInputNode : SKSpriteNode {
                 }
             }
         }
-        //MARK: Handlers begin
-        //joystick.on(.begin) { [unowned self] _ in
-        //
-        //}
-        //
-        // movement
-        //joystick.on(.move) { [unowned self] joystick in
-        //    if ((self.inputDelegate) != nil){
-        //        self.inputDelegate?.getCommandFromAngular(angular: joystick.angular)
-        //    }
-        //}
         
         (self.childNode(withName: "joystickHiddenArea")as! TLAnalogJoystickHiddenArea).joystick?.on(.end) { [unowned self] joystick in
             debugPrint(joystick.angular ,"end")

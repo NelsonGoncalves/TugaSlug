@@ -14,6 +14,7 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
     
     var touchControlNode : TouchControlInputNode?
     var currentScene : SKScene!
+    var dir = CGVector(dx: 0, dy: 0)
     
     func setupControls(camera : SKCameraNode, scene: SKScene) {
         
@@ -62,11 +63,11 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
                 // right
                 dir = CGVector(dx: 1, dy: 0)
             case (-1.0)...(1.0):
-                // left
-                dir = CGVector(dx: -1, dy: 0)
-            case (1.0)...(2.0):
                 // up
                 dir = CGVector(dx: 0, dy: 1)
+            case (1.0)...(2.0):
+                // left
+                dir = CGVector(dx: -1, dy: 0)
             case (2.0)...(3.0),(-3.0)...(-2.0):
                 // down
                 dir = CGVector(dx: 0, dy: -1)
@@ -82,8 +83,10 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
         if let moveComponent = entity?.component(ofType: ActionComponent.self){
             switch (command!){
             case ("left"):
+                dir = getDirectionFromAngle()
                 moveComponent.moveLeft()
             case ("right"):
+                dir = getDirectionFromAngle()
                 moveComponent.moveRight()
             case ("A"):
                 moveComponent.jump()
@@ -92,14 +95,13 @@ class PlayerControlComponent: GKComponent, ControlInputSourceDelegate {
             case ("stop down"):
                 moveComponent.stopDown()
             case ("X"):
-                moveComponent.beginRun()
                 moveComponent.slide()
             case "stop X","cancel X":
-                moveComponent.stopRun()
+                moveComponent.stopSlide()
             case "stop","cancel":
+                dir = getDirectionFromAngle()
                 moveComponent.stopMoving()
             case ("B"):
-                let dir = getDirectionFromAngle()
                 moveComponent.shoot(direction: dir)
             case "stop B":
                 moveComponent.stopShooting()

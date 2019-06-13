@@ -11,15 +11,13 @@ import GameplayKit
 class ActionComponent : GKComponent {
     
     @GKInspectable var walkSpeed:CGFloat = 1.6
-    @GKInspectable var runSpeed: CGFloat = 3.3
-    @GKInspectable var maxJump:CGFloat  = 100.0
+    @GKInspectable var maxJump:CGFloat  = 200.0
     @GKInspectable var maxSlide:CGFloat  = 50.0
     
     var hSpeed:CGFloat = 0.0
     var vSpeed:CGFloat = 0.0
     var direction:CGFloat = -1.0
     
-    var runMode = false
     var onGround = false
     var OnSlide = false
     
@@ -37,16 +35,10 @@ class ActionComponent : GKComponent {
     func startMoving(){
         let stateMachine = (self.entity as! PlayerEntity).st_machine
         
-        if runMode {
-            hSpeed = direction * runSpeed
-            if (stateMachine?.canEnterState(RunningState.self))! && onGround{
-                stateMachine?.enter(RunningState.self)
-            }
-        }else{
-            hSpeed = direction * walkSpeed
-            if (stateMachine?.canEnterState(WalkingState.self))! && onGround{
-                stateMachine?.enter(WalkingState.self)
-            }
+        hSpeed = direction * walkSpeed
+        if (stateMachine?.canEnterState(WalkingState.self))! && onGround{
+            stateMachine?.enter(WalkingState.self)
+           
         }
     }
     
@@ -74,10 +66,14 @@ class ActionComponent : GKComponent {
             if (onGround == true && OnSlide == false){
                 node.physicsBody?.applyImpulse(CGVector(dx: maxSlide, dy: 0))
                 (self.entity as! PlayerEntity).st_machine?.enter(SlidingState.self)
-                onGround = false
+                onGround = true
                 OnSlide = true
             }
         }
+    }
+    func stopSlide(){
+        OnSlide = false
+        onGround = true
     }
     func getDown(){
         if let pdown = self.entity?.component(ofType: GKSKNodeComponent.self)?.node as? PlayerNode {
@@ -90,13 +86,7 @@ class ActionComponent : GKComponent {
             pdown.pressingDown = false
         }
     }
-    func beginRun(){
-        runMode = true
-    }
-    
-    func stopRun(){
-        runMode = false
-    }
+
     
     func attack(){
         if let attackComp = self.entity?.component(ofType: AttackComponent.self) {
@@ -143,12 +133,7 @@ class ActionComponent : GKComponent {
                     }
                 } else {
                     
-                    if (runMode){
-                        if (stateMachine?.canEnterState(RunningState.self))!{
-                            stateMachine?.enter(RunningState.self)
-                            hSpeed = direction * runSpeed
-                        }
-                    }else if (stateMachine?.canEnterState(WalkingState.self))!{
+                    if (stateMachine?.canEnterState(WalkingState.self))!{
                         stateMachine?.enter(WalkingState.self)
                         hSpeed = direction * walkSpeed
                     }
@@ -164,10 +149,10 @@ class ActionComponent : GKComponent {
             
             if (hSpeed > 0){
                 node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
-                node.xScale = 0.1
+                node.xScale = 0.2
             }else if (hSpeed < 0){
                 node.physicsBody?.applyImpulse(CGVector(dx: hSpeed * 10, dy: 0), at: node.position)
-                node.xScale = -0.1
+                node.xScale = -0.2
             }
         }
         

@@ -22,14 +22,12 @@ class WalkingState: GKState {
         switch stateClass {
         case is IdleState.Type:
             return true
-        case is FallingState.Type:
-            return true
         case is JumpingState.Type:
             return true
-        case is RunningState.Type:
+        case is ShootingState.Type:
             return true
-        case is AttackingState.Type:
-            return false
+        case is SlidingState.Type:
+            return true
         default:
             return false
         }
@@ -47,15 +45,11 @@ class WalkingState: GKState {
             print("coming from unknown state")
         }
         
-        node.run(anim,withKey: "walk")
+        node.run(anim,withKey: "Walk")
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         
-        if ((node.physicsBody?.velocity.dy)! < -0.1){
-            stateMachine?.enter(FallingState.self)
-            print("lol")
-        }
     }
 }

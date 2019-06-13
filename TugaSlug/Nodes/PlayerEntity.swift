@@ -15,36 +15,32 @@ class PlayerEntity : GKEntity {
     
     var idleAnimation: String = "Idle"
     var jumpAnimation: String = "Jump"
-    //var doubleJumpAnimation: String = "DoubleJumpAnim"
-    var fallAnimation: String = "FallAnim"
     var walkAnimation: String = "Run"
-    var runAnimation: String  = "Run"
+    var shootAnimation: String = "Shoot"
+    var slideAnimation : String = "Slide"
     
     var idle:SKAction?
     var jump:SKAction?
-   // var doubleJump:SKAction?
-    var fall:SKAction?
     var walk:SKAction?
-    var run:SKAction?
+    var shoot:SKAction?
+    var slide : SKAction?
+
     
     func prepareSprite(){
         
         idle = SKAction(named: idleAnimation)!
         jump = SKAction(named: jumpAnimation)!
-        //doubleJump = SKAction(named: doubleJumpAnimation)!
-        //fall = SKAction(named: fallAnimation)!
         walk = SKAction(named: walkAnimation)!
-        //run =  SKAction(named: runAnimation)!
+        shoot = SKAction(named: shootAnimation)!
+        slide = SKAction(named: slideAnimation)
         
         if let node = self.component(ofType: GKSKNodeComponent.self)?.node as! SKSpriteNode? {
             st_machine = GKStateMachine(states: [
                 IdleState(withNode: node , animation: idle!),
                 WalkingState(withNode: node , animation: walk!),
                 JumpingState(withNode: node, animation: jump!),
-                //DoubleJumpState(withNode: node, animation: doubleJump!),
-                //FallingState(withNode: node, animation: fall!),
-                //RunningState(withNode: node, animation: run!),
-                //AttackingState(withNode: node, animation: run!)
+                ShootingState(withNode: node, animation: shoot!),
+                SlidingState(withNode: node, animation: slide!)
                 ])
             st_machine?.enter(IdleState.self)
         }

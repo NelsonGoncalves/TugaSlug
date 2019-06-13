@@ -123,7 +123,6 @@
 		233C7DD722AED70A0034058E /* Armature_JUMP_26.png in Resources */ = {isa = PBXBuildFile; fileRef = 233C7DAD22AED70A0034058E /* Armature_JUMP_26.png */; };
 		2369D8CD22ACBD14008EC51D /* PlayerActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2369D8CC22ACBD14008EC51D /* PlayerActions.sks */; };
 		236BBE6622AD66570076000D /* GameSceneExample.sks in Resources */ = {isa = PBXBuildFile; fileRef = 236BBE6522AD66570076000D /* GameSceneExample.sks */; };
-		23F2542D22ACBF48007E2110 /* MyScenePreview.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23F2542C22ACBF48007E2110 /* MyScenePreview.sks */; };
 		23F2928A22AF494A000ABBD0 /* SiriaTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23F2928922AF494A000ABBD0 /* SiriaTileSet.sks */; };
 		B619EC7E229DFB950001896A /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC7D229DFB950001896A /* PlayerNode.swift */; };
 		B619EC80229DFCF90001896A /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B619EC7F229DFCF90001896A /* PlayerEntity.swift */; };
@@ -271,7 +270,6 @@
 		233C7DAD22AED70A0034058E /* Armature_JUMP_26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Armature_JUMP_26.png; sourceTree = "<group>"; };
 		2369D8CC22ACBD14008EC51D /* PlayerActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerActions.sks; sourceTree = "<group>"; };
 		236BBE6522AD66570076000D /* GameSceneExample.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneExample.sks; sourceTree = "<group>"; };
-		23F2542C22ACBF48007E2110 /* MyScenePreview.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyScenePreview.sks; sourceTree = "<group>"; };
 		23F2928922AF494A000ABBD0 /* SiriaTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SiriaTileSet.sks; sourceTree = "<group>"; };
 		B619EC7D229DFB950001896A /* PlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
 		B619EC7F229DFCF90001896A /* PlayerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
@@ -538,7 +536,6 @@
 			isa = PBXGroup;
 			children = (
 				2369D8CC22ACBD14008EC51D /* PlayerActions.sks */,
-				23F2542C22ACBF48007E2110 /* MyScenePreview.sks */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -662,7 +659,6 @@
 				233C7DB822AED70A0034058E /* Armature_JUMP_37.png in Resources */,
 				233C7D3A22AED2960034058E /* Armature_IDLE_35.png in Resources */,
 				233C7D7B22AED6CC0034058E /* Armature_RUN-and-SHOT_13.png in Resources */,
-				23F2542D22ACBF48007E2110 /* MyScenePreview.sks in Resources */,
 				233C7D4122AED2960034058E /* Armature_IDLE_09.png in Resources */,
 				233C7D2C22AED2960034058E /* Armature_IDLE_16.png in Resources */,
 				233C7DBE22AED70A0034058E /* Armature_JUMP_07.png in Resources */,

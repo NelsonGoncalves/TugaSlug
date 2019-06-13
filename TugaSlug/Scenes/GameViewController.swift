@@ -14,8 +14,9 @@ struct ColliderType {
     static let PLAYER:  UInt32 = 1;
     static let GROUND:  UInt32 = 2;
     static let ENEMY:   UInt32 = 4;
-    static let PLATFORM:UInt32 = 8;
+    static let PLATFORM: UInt32 = 8;
     static let BULLET: UInt32 = 16;
+    static let ENEMYFIRE: UInt32 = 32
 }
 
 class GameViewController: UIViewController {
@@ -25,7 +26,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //presentMainMenu()
+        presentMainMenu()
         startGame()
         
         

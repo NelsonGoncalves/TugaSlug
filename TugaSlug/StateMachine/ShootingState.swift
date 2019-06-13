@@ -24,13 +24,11 @@ class ShootingState : GKState {
         switch stateClass {
         case is WalkingState.Type:
             return false
-        case is FallingState.Type:
-            return false
         case is JumpingState.Type:
             return false
-        case is RunningState.Type:
-            return false
         case is IdleState.Type:
+            return false
+        case is SlidingState.Type:
             return true
         default:
             return false
@@ -39,11 +37,11 @@ class ShootingState : GKState {
     
     
     override func didEnter(from previousState: GKState?) {
-  
+        
+        node.run(anim, withKey: "Shoot")
     }
     override func update(deltaTime currentTime: TimeInterval) {
         super.update(deltaTime: currentTime)
-        
         
     }
 }

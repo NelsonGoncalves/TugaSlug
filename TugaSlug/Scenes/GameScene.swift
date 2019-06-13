@@ -14,9 +14,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameViewController : GameViewController?
     
     var playerNode: PlayerNode?
+    var enemys = [SKSpriteNode]()
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
-    //var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
+    var parallaxComponentSystem: GKComponentSystem<ParallaxComponent>?
     //var platformComponentSystem: GKComponentSystem<PlatformComponent>?
     
     var before = false
@@ -40,7 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Actual game
         self.physicsWorld.contactDelegate = self
         
-        self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -1)
+        self.physicsWorld.gravity = CGVector(dx: 0.0,dy: -5)
         
         if ((self.childNode(withName: "Player") as? PlayerNode!) != nil){
             playerNode = (self.childNode(withName: "Player") as? PlayerNode)!
@@ -52,21 +53,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pcc.setupControls(camera: camera!, scene: self)
             }
         }
+        if((self.childNode(withName: "Enemys") as? SKSpriteNode) != nil) {
+            enemys = ((self.childNode(withName: "Enemys")?.children) as! [SKSpriteNode]?)!
+            for enemy in enemys {
+                enemy.texture = SKTexture(imageNamed: "Arabe")
+            }
+        }
         
-        
-        //parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
+        parallaxComponentSystem = GKComponentSystem.init(componentClass: ParallaxComponent.self)
         //platformComponentSystem = GKComponentSystem.init(componentClass: PlatformComponent.self)
         
-        //for entity in self.entities{
-        //    parallaxComponentSystem?.addComponent(foundIn: entity)
+        for entity in self.entities{
+            parallaxComponentSystem?.addComponent(foundIn: entity)
         //    platformComponentSystem?.addComponent(foundIn: entity)
-        //}
+        }
         
         
 
-        //for component in (parallaxComponentSystem?.components)!{
-        //    component.prepareWith(camera: camera)
-        //}
+        for component in (parallaxComponentSystem?.components)!{
+            component.prepareWith(camera: camera)
+        }
         //for component in (platformComponentSystem?.components)!{
         //    component.setUpWithPlayer(playerNode: playerNode)
         //}
@@ -90,15 +96,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for entity in self.entities {
             entity.update(deltaTime: dt)
         }
-        
-        //parallaxComponentSystem?.update(deltaTime: currentTime)
+        if((playerNode?.currentHealth)! < 0){
+            playerNode?.currentHealth = (playerNode?.maxHealth)!
+            playerNode?.position = CGPoint(x: 0.0, y: 0.0)
+            playerNode?.score = 0
+        }
+        for enemy in enemys {
+            if(enemy.position.length() < 5.0){
+                // criar bala em direçao ao player
+                
+                
+            }
+        }
+        parallaxComponentSystem?.update(deltaTime: currentTime)
         //
         //platformComponentSystem?.update(deltaTime: currentTime)
         
         self.lastUpdateTime = currentTime
         
     }
-    
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -127,32 +143,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         //bullet
         if(contact.bodyA.categoryBitMask == ColliderType.BULLET && contact.bodyB.categoryBitMask != ColliderType.BULLET){
-            if contact.bodyA.contactTestBitMask == ColliderType.GROUND || contact.bodyA.contactTestBitMask == ColliderType.PLATFORM{
+            if contact.bodyB.collisionBitMask == ColliderType.GROUND   {
                 contact.bodyA.node?.run(SKAction.removeFromParent())
             }
             if contact.bodyA.contactTestBitMask == ColliderType.ENEMY {
-                if let attackComponent = contact.bodyA.node?.entity?.component(ofType: AttackComponent.self){
-                    
-                }
                 contact.bodyA.node?.run(SKAction.removeFromParent())
+                contact.bodyB.node?.run(SKAction.removeFromParent())
             }
         }
         if(contact.bodyB.categoryBitMask == ColliderType.BULLET && contact.bodyA.categoryBitMask != ColliderType.BULLET){
-            
-            contact.bodyB.node?.run(SKAction.removeFromParent())
+            if contact.bodyA.collisionBitMask == ColliderType.GROUND  {
+                contact.bodyB.node?.run(SKAction.removeFromParent())
+            }
+            if contact.bodyB.contactTestBitMask == ColliderType.ENEMY{
+                contact.bodyB.node?.run(SKAction.removeFromParent())
+                contact.bodyA.node?.run(SKAction.removeFromParent())
+            }
         }
+        // Enemy Missiles
     }
     
     let despawnBulletAction: SKAction = {
         let growAndFadeAction = SKAction.group([SKAction.scale(to: 50, duration: 0.5),
                                                 SKAction.fadeOut(withDuration: 0.5)])
-        
         let sequence = SKAction.sequence([growAndFadeAction,
                                           SKAction.removeFromParent()])
         
         return sequence
     }()
-    
     
     //MARK: ============= Camera
     

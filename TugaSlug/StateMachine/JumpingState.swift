@@ -24,7 +24,7 @@ class JumpingState : GKState {
             return true
         case is WalkingState.Type:
             return true
-        case is DoubleJumpState.Type:
+        case is ShootingState.Type:
             return true
         default:
             return false

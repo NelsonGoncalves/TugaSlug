@@ -22,8 +22,6 @@ class RunningState: GKState {
         switch stateClass {
         case is IdleState.Type:
             return true
-        case is FallingState.Type:
-            return true
         case is JumpingState.Type:
             return true
         case is WalkingState.Type:

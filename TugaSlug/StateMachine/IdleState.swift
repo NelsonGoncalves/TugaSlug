@@ -24,13 +24,11 @@ class IdleState: GKState {
         switch stateClass {
         case is WalkingState.Type:
             return true
-        case is FallingState.Type:
-            return true
         case is JumpingState.Type:
             return true
-        case is RunningState.Type:
+        case is ShootingState.Type:
             return true
-        case is AttackingState.Type:
+        case is SlidingState.Type:
             return true
         default:
             return false
@@ -49,16 +47,13 @@ class IdleState: GKState {
         }
         
         
-        node.run(anim, withKey: "idle")
+        node.run(anim, withKey: "Idle")
         
         
     }
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         
-        if ((node.physicsBody?.velocity.dy)! < -0.1){
-            stateMachine?.enter(FallingState.self)
-        }
     }
     
 }

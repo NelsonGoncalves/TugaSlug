@@ -29,8 +29,9 @@ class AttackComponent : GKComponent {
             }
         }
     }
+
     func shoot(direction : CGVector){
-        print("shoot")
+        print(direction)
         self.dir = direction
         if let stateMachine = (self.entity as! PlayerEntity?)?.st_machine {
             print("tried to enter shooting")
@@ -60,17 +61,17 @@ class AttackComponent : GKComponent {
                 }
                 
                 
-                let direction = CGPoint(x: dir.dx, y: dir.dy)
+                let direction = CGVector(dx: dir.dx * 20, dy: dir.dy * 20)
                 //let shootAmount = direction * 1000
                 //let destination = shootAmount + bullet.position
-                var tmpDir = CGPoint(x: 1, y: 0)
-                var tmpDir2 = CGVector(dx: 0, dy: 1)
-                
-                bullet.physicsBody?.applyImpulse(CGVector(dx: tmpDir.x * 10.0, dy: tmpDir.y * 10.0))
+
+                bullet.setScale(0.5)
+                bullet.physicsBody?.applyImpulse(direction)
                 bullet.physicsBody?.categoryBitMask = ColliderType.BULLET
-                bullet.physicsBody?.collisionBitMask = ColliderType.GROUND + ColliderType.PLATFORM + ColliderType.ENEMY
-                bullet.physicsBody?.contactTestBitMask = ColliderType.GROUND
-                bullet.physicsBody?.restitution = 0.1
+                bullet.physicsBody?.collisionBitMask = ColliderType.GROUND
+                bullet.physicsBody?.contactTestBitMask =  ColliderType.ENEMY
+                bullet.physicsBody?.mass = 0.1
+                bullet.physicsBody?.restitution = -0.1
                 
                 //let actionMove = SKAction.move(to: destination, duration: 2.0)
                 let actionWait = SKAction.wait(forDuration: 2.0)
